@@ -1,28 +1,28 @@
-//**********************”–πÿŒƒº˛µƒ≤Ÿ◊˜µƒ∫Ø ˝***********************
+//**********************ÊúâÂÖ≥Êñá‰ª∂ÁöÑÊìç‰ΩúÁöÑÂáΩÊï∞***********************
 #include "../include/head.h"
 #include "../include/error.h"
 
-// ¥¥Ω®“ª∏ˆŒƒº˛
+// ÂàõÂª∫‰∏Ä‰∏™Êñá‰ª∂
 void Create_File(const char *file_name)
 {
-	// ºÏ≤ÈŒƒº˛√˚ «∑Ò∫œ∑®
+	// Ê£ÄÊü•Êñá‰ª∂ÂêçÊòØÂê¶ÂêàÊ≥ï
 	if (file_name == NULL || strlen(file_name) > FILENAME_MAX)
 	{
-		cout << "Œƒº˛√˚≤ª∫œ∑®" << endl;
+		cout << "Êñá‰ª∂Âêç‰∏çÂêàÊ≥ï" << endl;
 		throw(ERROR_INVALID_FILENAME);
 	}
-	// »°≥ˆsuperblock
+	// ÂèñÂá∫superblock
 	SuperBlock superblock;
 	Read_SuperBlock(superblock);
 
-	//  «∑Òªπ”–ø’œ–µƒblock∫Õinode
+	// ÊòØÂê¶ËøòÊúâÁ©∫Èó≤ÁöÑblockÂíåinode
 	if (superblock.s_fblocknum <= 0 || superblock.s_finodenum <= 0)
 	{
-		cout << "ø’º‰≤ª◊„£¨Œﬁ∑®¥¥Ω®–¬Œƒº˛" << endl;
+		cout << "Á©∫Èó¥‰∏çË∂≥ÔºåÊó†Ê≥ïÂàõÂª∫Êñ∞Êñá‰ª∂" << endl;
 		throw(ERROR_OUT_OF_SPACE);
 	}
 
-	// ºÏ≤‚µ±«∞ƒø¬º «∑Ò”–Õ¨√˚Œƒº˛
+	// Ê£ÄÊµãÂΩìÂâçÁõÆÂΩïÊòØÂê¶ÊúâÂêåÂêçÊñá‰ª∂
 	for (int i = 0; i < SUBDIRECTORY_NUM; i++)
 	{
 		if (strcmp(directory.d_filename[i], file_name) == 0)
@@ -38,13 +38,13 @@ void Create_File(const char *file_name)
 				continue;
 			else
 			{
-				cout << "Œƒº˛√˚≤ª∫œ∑®£¨µ±«∞ƒø¬º“—¥Ê‘⁄√˚Œ™" << file_name << "µƒŒƒº˛" << endl;
+				cout << "Êñá‰ª∂Âêç‰∏çÂêàÊ≥ïÔºåÂΩìÂâçÁõÆÂΩïÂ∑≤Â≠òÂú®Âêç‰∏∫" << file_name << "ÁöÑÊñá‰ª∂" << endl;
 				throw(ERROR_INVALID_FILENAME);
 			}
 		}
 	}
 
-	// ºÏ≤‚µ±«∞ƒø¬ºµƒŒƒº˛ ˝¡ø «∑Ò¥ÔµΩœﬁ÷∆
+	// Ê£ÄÊµãÂΩìÂâçÁõÆÂΩïÁöÑÊñá‰ª∂Êï∞ÈáèÊòØÂê¶ËææÂà∞ÈôêÂà∂
 	int itemCounter = 0;
 	for (int i = 0; i < SUBDIRECTORY_NUM; i++)
 		if (strlen(directory.d_filename[i]) > 0)
@@ -52,11 +52,11 @@ void Create_File(const char *file_name)
 
 	if (itemCounter == SUBDIRECTORY_NUM)
 	{
-		cout << "µ±«∞ƒø¬º“—¥Ô" << SUBDIRECTORY_NUM << "µƒ ˝¡øœﬁ÷∆£¨Œﬁ∑®ºÃ–¯¥¥Ω®Œƒº˛" << endl;
+		cout << "ÂΩìÂâçÁõÆÂΩïÂ∑≤Ëææ" << SUBDIRECTORY_NUM << "ÁöÑÊï∞ÈáèÈôêÂà∂ÔºåÊó†Ê≥ïÁªßÁª≠ÂàõÂª∫Êñá‰ª∂" << endl;
 		throw(ERROR_OUT_OF_SPACE);
 	}
 
-	// —∞’“–¬µƒinode
+	// ÂØªÊâæÊñ∞ÁöÑinode
 	unsigned int inode_bitmap[INODE_NUM];
 	Read_InodeBitMap(inode_bitmap);
 
@@ -66,34 +66,34 @@ void Create_File(const char *file_name)
 		if (inode_bitmap[new_inode_index] == 0)
 			break;
 
-	// ∂¡≥ˆUserΩ·ππÃÂ
+	// ËØªÂá∫UserÁªìÊûÑ‰Ωì
 	User user;
 	Read_User(user);
-	// ¥¥Ω®–¬µƒInode
+	// ÂàõÂª∫Êñ∞ÁöÑInode
 	Inode new_inode;
-	new_inode.i_number = new_inode_index; // Inodeµƒ±‡∫≈
-	new_inode.i_mode = Inode::IFILE;	  // Œƒº˛
+	new_inode.i_number = new_inode_index; // InodeÁöÑÁºñÂè∑
+	new_inode.i_mode = Inode::IFILE;	  // Êñá‰ª∂
 	new_inode.i_size = 0;
 	new_inode.i_uid = user_id;
 	new_inode.i_gid = user.u_gid[user_id];
 	new_inode.i_permission = 0777;
 	new_inode.i_count = 0;
 	new_inode.i_time = time(NULL);
-	// –¥»ÎInodeµΩƒ⁄¥Ê
+	// ÂÜôÂÖ•InodeÂà∞ÂÜÖÂ≠ò
 	fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
 	fd.seekg(INODE_POSITION * BLOCK_SIZE + new_inode.i_number * INODE_SIZE, ios::beg);
 	fd.write((char *)&new_inode, sizeof(new_inode));
 	fd.close();
 
-	// ∏¸–¬Œª æÕº
+	// Êõ¥Êñ∞‰ΩçÁ§∫Âõæ
 	inode_bitmap[new_inode.i_number] = 1;
 	Write_InodeBitMap(inode_bitmap);
 
-	// ∏¸–¬ƒø¬º
+	// Êõ¥Êñ∞ÁõÆÂΩï
 	int directory_inode_index = directory.d_inodenumber[0]; //"."
 	Inode directory_inode;
 	Read_Inode(directory_inode, directory_inode_index);
-	// º”»Îµ±«∞ƒø¬º
+	// Âä†ÂÖ•ÂΩìÂâçÁõÆÂΩï
 	for (int i = 2; i < SUBDIRECTORY_NUM; i++)
 	{
 		if (strlen(directory.d_filename[i]) == 0)
@@ -108,22 +108,22 @@ void Create_File(const char *file_name)
 	fd.write((char *)&directory, sizeof(directory));
 	fd.close();
 
-	// ∏¸–¬≥¨º∂øÈ
+	// Êõ¥Êñ∞Ë∂ÖÁ∫ßÂùó
 	Read_SuperBlock(superblock);
 	superblock.s_finodenum--;
 	Write_SuperBlock(superblock);
 }
 
-// …æ≥˝“ª∏ˆŒƒº˛
+// Âà†Èô§‰∏Ä‰∏™Êñá‰ª∂
 void Delete_File(const char *file_name)
 {
-	// ºÏ≤ÈŒƒº˛√˚ «∑Ò∫œ∑®
+	// Ê£ÄÊü•Êñá‰ª∂ÂêçÊòØÂê¶ÂêàÊ≥ï
 	if (file_name == NULL || strlen(file_name) > FILENAME_MAX)
 	{
-		cout << "Œƒº˛√˚≤ª∫œ∑®" << endl;
+		cout << "Êñá‰ª∂Âêç‰∏çÂêàÊ≥ï" << endl;
 		throw(ERROR_INVALID_FILENAME);
 	}
-	// »°≥ˆsuperblock
+	// ÂèñÂá∫superblock
 	SuperBlock superblock;
 	Read_SuperBlock(superblock);
 
@@ -131,7 +131,7 @@ void Delete_File(const char *file_name)
 	int inode_num;
 	int file_index_in_directory;
 	bool exist = false;
-	// ºÏ≤‚µ±«∞ƒø¬º «∑Ò”–Õ¨√˚Œƒº˛
+	// Ê£ÄÊµãÂΩìÂâçÁõÆÂΩïÊòØÂê¶ÊúâÂêåÂêçÊñá‰ª∂
 	for (int i = 0; i < SUBDIRECTORY_NUM; i++)
 	{
 		if (strcmp(directory.d_filename[i], file_name) == 0)
@@ -147,20 +147,20 @@ void Delete_File(const char *file_name)
 	}
 	if (exist == false)
 	{
-		cout << "Œƒº˛√˚≤ª∫œ∑®£¨µ±«∞ƒø¬º≤ª¥Ê‘⁄√˚Œ™" << file_name << "µƒŒƒº˛" << endl;
+		cout << "Êñá‰ª∂Âêç‰∏çÂêàÊ≥ïÔºåÂΩìÂâçÁõÆÂΩï‰∏çÂ≠òÂú®Âêç‰∏∫" << file_name << "ÁöÑÊñá‰ª∂" << endl;
 		throw(ERROR_INVALID_FILENAME);
 	}
 
-	// ºÏ≤ÈŒƒº˛ «∑Ò“—±ª”√ªß¥Úø™
+	// Ê£ÄÊü•Êñá‰ª∂ÊòØÂê¶Â∑≤Ë¢´Áî®Êà∑ÊâìÂºÄ
 	if (inode.i_count > 0)
 	{
-		cout << "µ±«∞Œƒº˛“—±ª¥Úø™£¨Œﬁ∑®…æ≥˝" << endl;
+		cout << "ÂΩìÂâçÊñá‰ª∂Â∑≤Ë¢´ÊâìÂºÄÔºåÊó†Ê≥ïÂà†Èô§" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 
-	// ºÏ≤È…æ≥˝µƒ»®œﬁ£®…æ≥˝–Ë“™…œ“ªº∂ƒø¬ºµƒ–¥»®œﬁ£©
-	//  ◊œ»≤È’“…œ“ªº∂ƒø¬º
-	// ∂¡≥ˆUserΩ·ππÃÂ
+	// Ê£ÄÊü•Âà†Èô§ÁöÑÊùÉÈôêÔºàÂà†Èô§ÈúÄË¶Å‰∏ä‰∏ÄÁ∫ßÁõÆÂΩïÁöÑÂÜôÊùÉÈôêÔºâ
+	// È¶ñÂÖàÊü•Êâæ‰∏ä‰∏ÄÁ∫ßÁõÆÂΩï
+	// ËØªÂá∫UserÁªìÊûÑ‰Ωì
 	User user;
 	Read_User(user);
 	int directory_inode_num = directory.d_inodenumber[0];
@@ -168,22 +168,22 @@ void Delete_File(const char *file_name)
 	Read_Inode(directory_inode, directory_inode_num);
 	if (user_id == inode.i_uid && !(directory_inode.i_permission & Inode::OWNER_W))
 	{
-		cout << "ƒ˙√ª”–»®œﬁ…æ≥˝∏√Œƒº˛" << endl;
+		cout << "ÊÇ®Ê≤°ÊúâÊùÉÈôêÂà†Èô§ËØ•Êñá‰ª∂" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 	else if (user_id != inode.i_uid && user.u_gid[user_id] == inode.i_gid && !(directory_inode.i_permission & Inode::GROUP_W))
 	{
-		cout << "ƒ˙√ª”–»®œﬁ…æ≥˝∏√Œƒº˛" << endl;
+		cout << "ÊÇ®Ê≤°ÊúâÊùÉÈôêÂà†Èô§ËØ•Êñá‰ª∂" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 	else if ((user_id != inode.i_uid && user.u_gid[user_id] != inode.i_gid) && !(directory_inode.i_permission & Inode::ELSE_W))
 	{
-		cout << "ƒ˙√ª”–»®œﬁ…æ≥˝∏√Œƒº˛" << endl;
+		cout << "ÊÇ®Ê≤°ÊúâÊùÉÈôêÂà†Èô§ËØ•Êñá‰ª∂" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 
-	// ø™ ºΩ¯––…æ≥˝
-	//  ◊œ» Õ∑≈À˘”–µƒblock
+	// ÂºÄÂßãËøõË°åÂà†Èô§
+	// È¶ñÂÖàÈáäÊîæÊâÄÊúâÁöÑblock
 	bool stop = !(inode.i_size > 0);
 	while (!stop)
 	{
@@ -209,13 +209,13 @@ void Delete_File(const char *file_name)
 			Free_Block(block_num_physical_3);
 		}
 	}
-	// ∏¸–¬Œª æÕº£® Õ∑≈Inode£©
+	// Êõ¥Êñ∞‰ΩçÁ§∫ÂõæÔºàÈáäÊîæInodeÔºâ
 	unsigned int inode_bitmap[INODE_NUM];
 	Read_InodeBitMap(inode_bitmap);
 	inode_bitmap[inode.i_number] = 0;
 	Write_InodeBitMap(inode_bitmap);
 
-	// ∏¸–¬ƒø¬º
+	// Êõ¥Êñ∞ÁõÆÂΩï
 	directory.d_filename[file_index_in_directory][0] = '\0';
 	directory.d_inodenumber[file_index_in_directory] = -1;
 	fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
@@ -223,12 +223,12 @@ void Delete_File(const char *file_name)
 	fd.write((char *)&directory, sizeof(directory));
 	fd.close();
 
-	// ∏¸–¬≥¨º∂øÈ
+	// Êõ¥Êñ∞Ë∂ÖÁ∫ßÂùó
 	superblock.s_finodenum++;
 	Write_SuperBlock(superblock);
 }
 
-// ’π æŒƒº˛¡–±Ì
+// Â±ïÁ§∫Êñá‰ª∂ÂàóË°®
 void Show_File_List(bool detail)
 {
 	const int file_name_length = 25,
@@ -274,21 +274,21 @@ void Show_File_List(bool detail)
 	}
 }
 
-// ∏˘æ›Œƒº˛√˚≥∆¥Úø™“ª∏ˆµ±«∞ƒø¬ºµƒŒƒº˛
+// Ê†πÊçÆÊñá‰ª∂ÂêçÁß∞ÊâìÂºÄ‰∏Ä‰∏™ÂΩìÂâçÁõÆÂΩïÁöÑÊñá‰ª∂
 File *Open_File(const char *file_name)
 {
-	// ºÏ≤ÈŒƒº˛√˚ «∑Ò∫œ∑®
+	// Ê£ÄÊü•Êñá‰ª∂ÂêçÊòØÂê¶ÂêàÊ≥ï
 	if (file_name == NULL || strlen(file_name) > FILENAME_MAX)
 	{
-		cout << "Œƒº˛√˚≤ª∫œ∑®" << endl;
+		cout << "Êñá‰ª∂Âêç‰∏çÂêàÊ≥ï" << endl;
 		throw(ERROR_INVALID_FILENAME);
 	}
 
-	// ≤È’“Œƒº˛ «∑Ò¥Ê‘⁄
+	// Êü•ÊâæÊñá‰ª∂ÊòØÂê¶Â≠òÂú®
 	Inode inode;
 	int inode_num;
 	bool exist = false;
-	// ºÏ≤‚µ±«∞ƒø¬º «∑Ò”–Õ¨√˚Œƒº˛
+	// Ê£ÄÊµãÂΩìÂâçÁõÆÂΩïÊòØÂê¶ÊúâÂêåÂêçÊñá‰ª∂
 	for (int i = 0; i < SUBDIRECTORY_NUM; i++)
 	{
 		if (strcmp(directory.d_filename[i], file_name) == 0)
@@ -303,13 +303,13 @@ File *Open_File(const char *file_name)
 	}
 	if (exist == false)
 	{
-		cout << "Œƒº˛√˚≤ª∫œ∑®£¨µ±«∞ƒø¬º≤ª¥Ê‘⁄√˚Œ™" << file_name << "µƒŒƒº˛" << endl;
+		cout << "Êñá‰ª∂Âêç‰∏çÂêàÊ≥ïÔºåÂΩìÂâçÁõÆÂΩï‰∏çÂ≠òÂú®Âêç‰∏∫" << file_name << "ÁöÑÊñá‰ª∂" << endl;
 		throw(ERROR_INVALID_FILENAME);
 	}
 
-	// “˝”√º∆ ˝++
+	// ÂºïÁî®ËÆ°Êï∞++
 	inode.i_count++;
-	// ∑√Œ  ±º‰–ﬁ∏ƒ
+	// ËÆøÈóÆÊó∂Èó¥‰øÆÊîπ
 	inode.i_time = time(NULL);
 	Write_Inode(inode, inode_num);
 
@@ -321,30 +321,30 @@ File *Open_File(const char *file_name)
 	return file;
 }
 
-// ∏˘æ›Œƒº˛Ω·ππÃÂπÿ±’“ª∏ˆŒƒº˛
+// Ê†πÊçÆÊñá‰ª∂ÁªìÊûÑ‰ΩìÂÖ≥Èó≠‰∏Ä‰∏™Êñá‰ª∂
 void Close_File(File *file)
 {
 	Inode inode;
 	int inode_num = file->f_inodeid;
 	Read_Inode(inode, inode_num);
 
-	// ºÏ≤Èµ±«∞”√ªß «≤ª «Œƒº˛µƒ¥Úø™’ﬂ
+	// Ê£ÄÊü•ÂΩìÂâçÁî®Êà∑ÊòØ‰∏çÊòØÊñá‰ª∂ÁöÑÊâìÂºÄËÄÖ
 	if (user_id != file->f_uid)
 	{
-		cout << "∑«Œƒº˛¥Úø™”√ªß≤ªø…“‘∂‘Œƒº˛Ω¯––πÿ±’≤Ÿ◊˜" << endl;
+		cout << "ÈùûÊñá‰ª∂ÊâìÂºÄÁî®Êà∑‰∏çÂèØ‰ª•ÂØπÊñá‰ª∂ËøõË°åÂÖ≥Èó≠Êìç‰Ωú" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 
-	// “˝”√º∆ ˝++
+	// ÂºïÁî®ËÆ°Êï∞++
 	inode.i_count--;
-	// ∑√Œ  ±º‰–ﬁ∏ƒ
+	// ËÆøÈóÆÊó∂Èó¥‰øÆÊîπ
 	inode.i_time = time(NULL);
 	Write_Inode(inode, inode_num);
 
 	delete file;
 }
 
-// –¥Œƒº˛
+// ÂÜôÊñá‰ª∂
 unsigned int Write_File(File *file, const char *content)
 {
 	Inode inode;
@@ -353,48 +353,48 @@ unsigned int Write_File(File *file, const char *content)
 	User user;
 	Read_User(user);
 
-	// ºÏ≤Èµ±«∞”√ªß «≤ª «Œƒº˛µƒ¥Úø™’ﬂ
+	// Ê£ÄÊü•ÂΩìÂâçÁî®Êà∑ÊòØ‰∏çÊòØÊñá‰ª∂ÁöÑÊâìÂºÄËÄÖ
 	if (user_id != file->f_uid)
 	{
-		cout << "∑«Œƒº˛¥Úø™”√ªß≤ªø…“‘∂‘Œƒº˛Ω¯–––¥≤Ÿ◊˜" << endl;
+		cout << "ÈùûÊñá‰ª∂ÊâìÂºÄÁî®Êà∑‰∏çÂèØ‰ª•ÂØπÊñá‰ª∂ËøõË°åÂÜôÊìç‰Ωú" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
-	// ºÏ≤È»®œﬁ
+	// Ê£ÄÊü•ÊùÉÈôê
 	if (user_id == inode.i_uid && !(inode.i_permission & Inode::OWNER_W))
 	{
-		cout << "µ±«∞”√ªß√ª”–»®œﬁ∂‘Œƒº˛Ω¯–––¥≤Ÿ◊˜" << endl;
+		cout << "ÂΩìÂâçÁî®Êà∑Ê≤°ÊúâÊùÉÈôêÂØπÊñá‰ª∂ËøõË°åÂÜôÊìç‰Ωú" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 	else if (user_id != inode.i_uid && user.u_gid[user_id] == inode.i_gid && !(inode.i_permission & Inode::GROUP_W))
 	{
-		cout << "µ±«∞”√ªß√ª”–»®œﬁ∂‘Œƒº˛Ω¯–––¥≤Ÿ◊˜" << endl;
+		cout << "ÂΩìÂâçÁî®Êà∑Ê≤°ÊúâÊùÉÈôêÂØπÊñá‰ª∂ËøõË°åÂÜôÊìç‰Ωú" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 	else if ((user_id != inode.i_uid && user.u_gid[user_id] != inode.i_gid) && !(inode.i_permission & Inode::ELSE_W))
 	{
-		cout << "µ±«∞”√ªß√ª”–»®œﬁ∂‘Œƒº˛Ω¯–––¥≤Ÿ◊˜" << endl;
+		cout << "ÂΩìÂâçÁî®Êà∑Ê≤°ÊúâÊùÉÈôêÂØπÊñá‰ª∂ËøõË°åÂÜôÊìç‰Ωú" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 
-	// ºÏ≤ÈŒƒº˛¥Û–° «∑Ò“—µΩ¥Ôº´œﬁ
+	// Ê£ÄÊü•Êñá‰ª∂Â§ßÂ∞èÊòØÂê¶Â∑≤Âà∞ËææÊûÅÈôê
 	if (file->f_offset + strlen(content) + 1 > BLOCK_SIZE * (6 + 2 * 128 + 2 * 128 * 128 - 2))
 	{
-		cout << "≥¨π˝Œƒº˛µƒ◊Ó¥Û≥§∂»" << endl;
+		cout << "Ë∂ÖËøáÊñá‰ª∂ÁöÑÊúÄÂ§ßÈïøÂ∫¶" << endl;
 		throw(ERROR_OUT_OF_SPACE);
 	}
 
-	// µ±«∞“™–¥»Îµƒblocknum
+	// ÂΩìÂâçË¶ÅÂÜôÂÖ•ÁöÑblocknum
 	unsigned int block_num_logical;
 	unsigned int block_num_physical;
 	unsigned int content_offset = 0;
 
 	while (content_offset < strlen(content))
 	{
-		// »Áπ˚µ±«∞øÈªπŒ¥Ω¯––ŒÔ¿ÌøÈµƒ…Í«Î
+		// Â¶ÇÊûúÂΩìÂâçÂùóËøòÊú™ËøõË°åÁâ©ÁêÜÂùóÁöÑÁî≥ËØ∑
 		block_num_logical = (file->f_offset) / BLOCK_SIZE;
 		if (file->f_offset == inode.i_size && (inode.i_size % BLOCK_SIZE == 0))
 		{
-			// …Í«ÎøÈ
+			// Áî≥ËØ∑Âùó
 			if (block_num_logical <= 5)
 			{
 				Allocate_Block(block_num_physical);
@@ -457,20 +457,20 @@ unsigned int Write_File(File *file, const char *content)
 		}
 		unsigned int tmp2, tmp3;
 		Get_Block_Pysical_Num(inode, block_num_logical, block_num_physical, tmp2, tmp3);
-		// ‘⁄µ±«∞øÈ–¥»ÎµƒŒª÷√
+		// Âú®ÂΩìÂâçÂùóÂÜôÂÖ•ÁöÑ‰ΩçÁΩÆ
 		unsigned int block_offset;
 		block_offset = file->f_offset % BLOCK_SIZE;
-		// ±æ¥Œ–Ë“™–¥»Îµƒ◊÷Ω⁄ ˝
+		// Êú¨Ê¨°ÈúÄË¶ÅÂÜôÂÖ•ÁöÑÂ≠óËäÇÊï∞
 		unsigned int write_byte_num;
 		write_byte_num = (strlen(content) - content_offset) >= (BLOCK_SIZE - block_offset) ? BLOCK_SIZE - block_offset : strlen(content) - content_offset;
 
-		// ¥”ƒ⁄¥Ê÷–∂¡≥ˆ∏√øÈƒ⁄»›
+		// ‰ªéÂÜÖÂ≠ò‰∏≠ËØªÂá∫ËØ•ÂùóÂÜÖÂÆπ
 		char block_content[BLOCK_SIZE];
 		fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
 		fd.seekg(BLOCK_SIZE * (BLOCK_NUM + block_num_physical), ios::beg);
 		fd.read(block_content, sizeof(block_content));
 		fd.close();
-		// Ω´ƒ⁄»›–¥»Îƒ⁄¥Ê
+		// Â∞ÜÂÜÖÂÆπÂÜôÂÖ•ÂÜÖÂ≠ò
 		memcpy(block_content + block_offset, content + content_offset, write_byte_num);
 		fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
 		fd.seekg(BLOCK_SIZE * (BLOCK_NUM + block_num_physical), ios::beg);
@@ -488,7 +488,7 @@ unsigned int Write_File(File *file, const char *content)
 	return strlen(content);
 }
 
-// ∏¸∏ƒŒƒº˛÷∏’Î
+// Êõ¥ÊîπÊñá‰ª∂ÊåáÈíà
 void Seek_File(File *file, unsigned int pos)
 {
 	Inode inode;
@@ -497,40 +497,40 @@ void Seek_File(File *file, unsigned int pos)
 	User user;
 	Read_User(user);
 
-	// ºÏ≤Èµ±«∞”√ªß «≤ª «Œƒº˛µƒ¥Úø™’ﬂ
+	// Ê£ÄÊü•ÂΩìÂâçÁî®Êà∑ÊòØ‰∏çÊòØÊñá‰ª∂ÁöÑÊâìÂºÄËÄÖ
 	if (user_id != file->f_uid)
 	{
-		cout << "∑«Œƒº˛¥Úø™”√ªß≤ªø…“‘∂‘Œƒº˛÷∏’Î∏¸∏ƒ" << endl;
+		cout << "ÈùûÊñá‰ª∂ÊâìÂºÄÁî®Êà∑‰∏çÂèØ‰ª•ÂØπÊñá‰ª∂ÊåáÈíàÊõ¥Êîπ" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 
-	// ºÏ≤È»®œﬁ
+	// Ê£ÄÊü•ÊùÉÈôê
 	if (user_id == inode.i_uid && !(inode.i_permission & Inode::OWNER_W))
 	{
-		cout << "µ±«∞”√ªß√ª”–»®œﬁ∂‘Œƒº˛Ω¯––÷∏’Î∏¸∏ƒ" << endl;
+		cout << "ÂΩìÂâçÁî®Êà∑Ê≤°ÊúâÊùÉÈôêÂØπÊñá‰ª∂ËøõË°åÊåáÈíàÊõ¥Êîπ" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 	else if (user_id != inode.i_uid && user.u_gid[user_id] == inode.i_gid && !(inode.i_permission & Inode::GROUP_W))
 	{
-		cout << "µ±«∞”√ªß√ª”–»®œﬁ∂‘Œƒº˛Ω¯––÷∏’Î∏¸∏ƒ" << endl;
+		cout << "ÂΩìÂâçÁî®Êà∑Ê≤°ÊúâÊùÉÈôêÂØπÊñá‰ª∂ËøõË°åÊåáÈíàÊõ¥Êîπ" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 	else if ((user_id != inode.i_uid && user.u_gid[user_id] != inode.i_gid) && !(inode.i_permission & Inode::ELSE_W))
 	{
-		cout << "µ±«∞”√ªß√ª”–»®œﬁ∂‘Œƒº˛Ω¯––÷∏’Î∏¸∏ƒ" << endl;
+		cout << "ÂΩìÂâçÁî®Êà∑Ê≤°ÊúâÊùÉÈôêÂØπÊñá‰ª∂ËøõË°åÊåáÈíàÊõ¥Êîπ" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 
 	if (inode.i_size < pos)
 	{
-		cout << " ‰»ÎµƒŒƒº˛÷∏’ÎŒª÷√¥Û”⁄Œƒº˛≥§∂»£¨“—∂®ŒªµΩŒƒº˛ƒ©Œ≤" << endl;
+		cout << "ËæìÂÖ•ÁöÑÊñá‰ª∂ÊåáÈíà‰ΩçÁΩÆÂ§ß‰∫éÊñá‰ª∂ÈïøÂ∫¶ÔºåÂ∑≤ÂÆö‰ΩçÂà∞Êñá‰ª∂Êú´Â∞æ" << endl;
 	}
 	file->f_offset = (inode.i_size < pos) ? inode.i_size : pos;
 
 	Write_Inode(inode, inode_num);
 }
 
-// ∂¡Œƒº˛
+// ËØªÊñá‰ª∂
 unsigned int Read_File(File *file, char *content, int length)
 {
 	Inode inode;
@@ -539,26 +539,26 @@ unsigned int Read_File(File *file, char *content, int length)
 	User user;
 	Read_User(user);
 
-	// ºÏ≤Èµ±«∞”√ªß «≤ª «Œƒº˛µƒ¥Úø™’ﬂ
+	// Ê£ÄÊü•ÂΩìÂâçÁî®Êà∑ÊòØ‰∏çÊòØÊñá‰ª∂ÁöÑÊâìÂºÄËÄÖ
 	if (user_id != file->f_uid)
 	{
-		cout << "∑«Œƒº˛¥Úø™”√ªß≤ªø…“‘∂‘Œƒº˛Ω¯––∂¡≤Ÿ◊˜" << endl;
+		cout << "ÈùûÊñá‰ª∂ÊâìÂºÄÁî®Êà∑‰∏çÂèØ‰ª•ÂØπÊñá‰ª∂ËøõË°åËØªÊìç‰Ωú" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
-	// ºÏ≤È»®œﬁ
+	// Ê£ÄÊü•ÊùÉÈôê
 	if (user_id == inode.i_uid && !(inode.i_permission & Inode::OWNER_R))
 	{
-		cout << "µ±«∞”√ªß√ª”–»®œﬁ∂¡Œƒº˛" << endl;
+		cout << "ÂΩìÂâçÁî®Êà∑Ê≤°ÊúâÊùÉÈôêËØªÊñá‰ª∂" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 	else if (user_id != inode.i_uid && user.u_gid[user_id] == inode.i_gid && !(inode.i_permission & Inode::GROUP_R))
 	{
-		cout << "µ±«∞”√ªß√ª”–»®œﬁ∂¡Œƒº˛" << endl;
+		cout << "ÂΩìÂâçÁî®Êà∑Ê≤°ÊúâÊùÉÈôêËØªÊñá‰ª∂" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 	else if ((user_id != inode.i_uid && user.u_gid[user_id] != inode.i_gid) && !(inode.i_permission & Inode::ELSE_R))
 	{
-		cout << "µ±«∞”√ªß√ª”–»®œﬁ∂¡Œƒº˛" << endl;
+		cout << "ÂΩìÂâçÁî®Êà∑Ê≤°ÊúâÊùÉÈôêËØªÊñá‰ª∂" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 
@@ -591,12 +591,12 @@ unsigned int Read_File(File *file, char *content, int length)
 	return strlen(content);
 }
 
-// ∏¸∏ƒ“ª∏ˆŒƒº˛µƒ»®œﬁ
+// Êõ¥Êîπ‰∏Ä‰∏™Êñá‰ª∂ÁöÑÊùÉÈôê
 void Edit_File_Permission(const char *directory_name, unsigned short permission, bool add)
 {
 	if (directory_name == NULL)
 	{
-		cout << "¬∑æ∂√˚≤ª∫œ∑®" << endl;
+		cout << "Ë∑ØÂæÑÂêç‰∏çÂêàÊ≥ï" << endl;
 		throw(ERROR_INVALID_PATH);
 	}
 	char *reached_path = new char[strlen(directory_name) + 2];
@@ -620,7 +620,7 @@ void Edit_File_Permission(const char *directory_name, unsigned short permission,
 			to_dir[i] = directory_name[index];
 		}
 		bool find = false;
-		// ±È¿˙ƒø¬º
+		// ÈÅçÂéÜÁõÆÂΩï
 		for (int i = 0; i < SUBDIRECTORY_NUM; i++)
 		{
 			if (strcmp(to_dir, current_directory.d_filename[i]) == 0)
@@ -635,7 +635,7 @@ void Edit_File_Permission(const char *directory_name, unsigned short permission,
 					strcat(reached_path, to_dir);
 					strcat(reached_path, "/");
 
-					// ∏¸∏ƒcurrent_directory
+					// Êõ¥Êîπcurrent_directory
 					fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
 					fd.seekg(BLOCK_SIZE * (BLOCK_POSITION + to_inode.i_addr[0]), ios::beg);
 					fd.read((char *)&current_directory, sizeof(current_directory));
@@ -645,7 +645,7 @@ void Edit_File_Permission(const char *directory_name, unsigned short permission,
 				else
 				{
 					strcat(reached_path, to_dir);
-					// ’“µΩŒƒº˛
+					// ÊâæÂà∞Êñá‰ª∂
 					if (strlen(reached_path) == strlen(directory_name))
 					{
 						find = true;
@@ -655,7 +655,7 @@ void Edit_File_Permission(const char *directory_name, unsigned short permission,
 		}
 		if (find == false)
 		{
-			cout << "ƒø¬º≤ª∫œ∑®" << endl;
+			cout << "ÁõÆÂΩï‰∏çÂêàÊ≥ï" << endl;
 			throw(ERROR_INVALID_PATH);
 		}
 	}

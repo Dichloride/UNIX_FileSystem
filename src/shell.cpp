@@ -5,7 +5,7 @@ vector<string> split(string str)
     string buf;
     stringstream ss(str);
     vector<string> v;
-    // ×Ö·ûÁ÷ss
+    // ï¿½Ö·ï¿½ï¿½ï¿½ss
     while (ss >> buf)
     {
         // ×ªÐ¡Ð´
@@ -114,23 +114,23 @@ void Switch_Demand(vector<string> demand_vector, map<string, File *> file_open)
         }
         else
         {
-            cout << "ÃüÁî²»´æÔÚ" << endl;
+            cout << "ï¿½ï¿½ï¿½î²»ï¿½ï¿½ï¿½ï¿½" << endl;
         }
     }
     else if (demand_vector[0] == "attrib")
     {
         if (demand_vector.size() != 4)
-            cout << "ATTRIB£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP ATTRIB\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "ATTRIBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP ATTRIB\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else if (demand_vector[1].size() != 2)
-            cout << "ATTRIB£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP ATTRIB\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "ATTRIBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP ATTRIB\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else if (demand_vector[1][0] != '+' && demand_vector[1][0] != '-')
-            cout << "ATTRIB£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP ATTRIB\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "ATTRIBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP ATTRIB\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else if (demand_vector[1][1] != 'r' && demand_vector[1][1] != 'w' && demand_vector[1][1] != 'e')
-            cout << "ATTRIB£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP ATTRIB\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "ATTRIBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP ATTRIB\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else if (demand_vector[2].size() != 1)
-            cout << "ATTRIB£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP ATTRIB\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "ATTRIBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP ATTRIB\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else if (demand_vector[2][0] != 'o' && demand_vector[2][0] != 'g' && demand_vector[2][0] != 'e')
-            cout << "ATTRIB£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP ATTRIB\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "ATTRIBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP ATTRIB\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             unsigned int permission = 0;
@@ -158,7 +158,7 @@ void Switch_Demand(vector<string> demand_vector, map<string, File *> file_open)
             else if (demand_vector[1][1] == 'e' && demand_vector[2] == "e")
                 permission = Inode::ELSE_E;
             Edit_File_Permission(demand_vector[3].c_str(), permission, add);
-            cout << "ÒÑ³É¹¦¸ü¸ÄÎÄ¼þ¶ÁÐ´ÊôÐÔ" << endl;
+            cout << "ï¿½Ñ³É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½" << endl;
         }
     }
     else if (demand_vector[0] == "cd")
@@ -175,22 +175,22 @@ void Switch_Demand(vector<string> demand_vector, map<string, File *> file_open)
     else if (demand_vector[0] == "del")
     {
         if (demand_vector.size() < 2)
-            cout << "DEL£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP DEL\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "DELï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP DEL\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             for (int i = 1; i < demand_vector.size(); i++)
             {
                 Delete_File(demand_vector[i].c_str());
-                cout << "³É¹¦É¾³ýÎÄ¼þ" << demand_vector[i] << endl;
+                cout << "ï¿½É¹ï¿½É¾ï¿½ï¿½ï¿½Ä¼ï¿½" << demand_vector[i] << endl;
             }
         }
     }
     else if (demand_vector[0] == "dir")
     {
         if (demand_vector.size() > 2)
-            cout << "DIR£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP DIR\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "DIRï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP DIR\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else if (demand_vector.size() == 2 && demand_vector[1] != "/q")
-            cout << "DIR£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP DIR\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "DIRï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP DIR\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             if (demand_vector.size() == 1)
@@ -202,19 +202,19 @@ void Switch_Demand(vector<string> demand_vector, map<string, File *> file_open)
     else if (demand_vector[0] == "exit")
     {
         if (demand_vector.size() > 2)
-            cout << "EXIT£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP EXIT\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "EXITï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP EXIT\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else if (demand_vector.size() == 2 && !isdigit(demand_vector[1][0]))
-            cout << "EXIT£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP EXIT\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "EXITï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP EXIT\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             if (demand_vector.size() == 1)
             {
-                cout << "ÍË³öÎÄ¼þÏµÍ³" << endl;
+                cout << "ï¿½Ë³ï¿½ï¿½Ä¼ï¿½ÏµÍ³" << endl;
                 exit(0);
             }
             else
             {
-                cout << "ÍË³öÎÄ¼þÏµÍ³" << endl;
+                cout << "ï¿½Ë³ï¿½ï¿½Ä¼ï¿½ÏµÍ³" << endl;
                 exit((int)demand_vector[1][0] - 48);
             }
         }
@@ -222,64 +222,64 @@ void Switch_Demand(vector<string> demand_vector, map<string, File *> file_open)
     else if (demand_vector[0] == "mkdir")
     {
         if (demand_vector.size() != 2)
-            cout << "MKDIR£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP MKDIR\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "MKDIRï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP MKDIR\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             Create_Directory(demand_vector[1].c_str());
-            cout << "³É¹¦´´½¨Ä¿Â¼" << demand_vector[1] << endl;
+            cout << "ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Â¼" << demand_vector[1] << endl;
         }
     }
     else if (demand_vector[0] == "rmdir")
     {
         if (demand_vector.size() != 2)
-            cout << "MKDIR£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP RMDIR\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "MKDIRï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP RMDIR\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             Remove_Directory(demand_vector[1].c_str());
-            cout << "³É¹¦É¾³ýÄ¿Â¼" << demand_vector[1] << endl;
+            cout << "ï¿½É¹ï¿½É¾ï¿½ï¿½Ä¿Â¼" << demand_vector[1] << endl;
         }
     }
     else if (demand_vector[0] == "open")
     {
         if (demand_vector.size() != 2)
-            cout << "OPEN£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP OPEN\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "OPENï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP OPEN\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             File *file = Open_File(demand_vector[1].c_str());
             if (file_open.find(Current_Directory() + "\\" + demand_vector[1]) == file_open.end())
             {
                 file_open[Current_Directory() + "\\" + demand_vector[1]] = file;
-                cout << "ÒÑ³É¹¦´ò¿ªÎÄ¼þ" << demand_vector[1] << endl;
+                cout << "ï¿½Ñ³É¹ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½" << demand_vector[1] << endl;
             }
             else
             {
-                cout << "µ±Ç°ÎÄ¼þÒÑ±»´ò¿ª£¬ÎÞ·¨ÖØ¸´´ò¿ª" << endl;
+                cout << "ï¿½ï¿½Ç°ï¿½Ä¼ï¿½ï¿½Ñ±ï¿½ï¿½ò¿ª£ï¿½ï¿½Þ·ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½" << endl;
             }
         }
     }
     else if (demand_vector[0] == "close")
     {
         if (demand_vector.size() != 2)
-            cout << "CLOSE£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP CLOSE\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "CLOSEï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP CLOSE\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             auto it = file_open.find(Current_Directory() + "\\" + demand_vector[1]);
             if (it == file_open.end())
             {
-                cout << "Î´´ò¿ªÎÄ¼þ" << demand_vector[1] << endl;
+                cout << "Î´ï¿½ï¿½ï¿½Ä¼ï¿½" << demand_vector[1] << endl;
             }
             else
             {
                 Close_File(it->second);
                 file_open.erase(it);
-                cout << "ÒÑ³É¹¦¹Ø±ÕÎÄ¼þ" << demand_vector[1] << endl;
+                cout << "ï¿½Ñ³É¹ï¿½ï¿½Ø±ï¿½ï¿½Ä¼ï¿½" << demand_vector[1] << endl;
             }
         }
     }
     else if (demand_vector[0] == "print")
     {
         if (demand_vector.size() > 6)
-            cout << "PRINT£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP PRINT\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "PRINTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP PRINT\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             int length = -1;
@@ -290,7 +290,7 @@ void Switch_Demand(vector<string> demand_vector, map<string, File *> file_open)
                     break;
                 if (it->at(0) == '-' && !(it->at(1) == 'p' || it->at(1) == 'l'))
                 {
-                    cout << "PRINT£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP PRINT\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+                    cout << "PRINTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP PRINT\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
                     return;
                 }
             }
@@ -299,7 +299,7 @@ void Switch_Demand(vector<string> demand_vector, map<string, File *> file_open)
                 it++;
                 if (!isdigit(it->at(0)))
                 {
-                    cout << "PRINT£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP PRINT\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+                    cout << "PRINTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP PRINT\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
                     return;
                 }
                 length = atoi((*it).c_str());
@@ -309,7 +309,7 @@ void Switch_Demand(vector<string> demand_vector, map<string, File *> file_open)
             auto i = file_open.find(Current_Directory() + "\\" + demand_vector[1]);
             if (i == file_open.end())
             {
-                cout << "Î´´ò¿ªÎÄ¼þ" << demand_vector[1] << endl;
+                cout << "Î´ï¿½ï¿½ï¿½Ä¼ï¿½" << demand_vector[1] << endl;
                 return;
             }
             Read_File(i->second, content, length);
@@ -325,12 +325,12 @@ void Switch_Demand(vector<string> demand_vector, map<string, File *> file_open)
                 fstream f(*it, ios::out);
                 if (!f.is_open())
                 {
-                    cout << "ÎÞ·¨Ð´ÈëÎÄ¼þ" << *it << endl;
+                    cout << "ï¿½Þ·ï¿½Ð´ï¿½ï¿½ï¿½Ä¼ï¿½" << *it << endl;
                     return;
                 }
                 f << content;
                 f.close();
-                cout << "ÒÑ½«" << demand_vector[1] << "ÎÄ¼þÄÚÈÝÐ´Èë" << *it << endl;
+                cout << "ï¿½Ñ½ï¿½" << demand_vector[1] << "ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½" << *it << endl;
             }
             else
             {
@@ -342,23 +342,23 @@ void Switch_Demand(vector<string> demand_vector, map<string, File *> file_open)
     else if (demand_vector[0] == "write")
     {
         if (demand_vector.size() > 4)
-            cout << "WRITE£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP WRITE\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "WRITEï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP WRITE\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else if (demand_vector[2] != "-s" && demand_vector[2] != "-f")
-            cout << "WRITE£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP WRITE\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "WRITEï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP WRITE\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
 
         else
         {
             auto it = file_open.find(Current_Directory() + "\\" + demand_vector[1]);
             if (it == file_open.end())
             {
-                cout << "Î´´ò¿ªÎÄ¼þ" << demand_vector[1] << endl;
+                cout << "Î´ï¿½ï¿½ï¿½Ä¼ï¿½" << demand_vector[1] << endl;
                 return;
             }
 
             if (demand_vector[2] == "-s")
             {
                 Write_File(it->second, demand_vector[3].c_str());
-                cout << "³É¹¦Ð´ÈëÎÄ¼þ" << endl;
+                cout << "ï¿½É¹ï¿½Ð´ï¿½ï¿½ï¿½Ä¼ï¿½" << endl;
             }
             else
             {
@@ -366,7 +366,7 @@ void Switch_Demand(vector<string> demand_vector, map<string, File *> file_open)
                 fstream f(demand_vector[3], ios::in);
                 if (!f.is_open())
                 {
-                    cout << "ÎÞ·¨´ò¿ªÎÄ¼þ" << demand_vector[2] << endl;
+                    cout << "ï¿½Þ·ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½" << demand_vector[2] << endl;
                     return;
                 }
                 while (!f.eof())
@@ -376,66 +376,66 @@ void Switch_Demand(vector<string> demand_vector, map<string, File *> file_open)
                     Write_File(it->second, content.c_str());
                 }
                 f.close();
-                cout << "ÒÑ½«" << demand_vector[3] << "ÎÄ¼þÄÚÈÝÐ´Èë" << demand_vector[1] << endl;
+                cout << "ï¿½Ñ½ï¿½" << demand_vector[3] << "ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½" << demand_vector[1] << endl;
             }
         }
     }
     else if (demand_vector[0] == "fseek")
     {
         if (demand_vector.size() != 3)
-            cout << "FSEEK£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP FSEEK\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "FSEEKï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP FSEEK\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             auto it = file_open.find(Current_Directory() + "\\" + demand_vector[1]);
             if (it == file_open.end())
             {
-                cout << "Î´´ò¿ªÎÄ¼þ" << demand_vector[1] << endl;
+                cout << "Î´ï¿½ï¿½ï¿½Ä¼ï¿½" << demand_vector[1] << endl;
             }
             else
             {
                 Seek_File(it->second, atoi(demand_vector[2].c_str()));
-                cout << "ÒÑ½«" << demand_vector[1] << "ÎÄ¼þÖ¸Õë¶¨Î»µ½" << demand_vector[2] << endl;
+                cout << "ï¿½Ñ½ï¿½" << demand_vector[1] << "ï¿½Ä¼ï¿½Ö¸ï¿½ë¶¨Î»ï¿½ï¿½" << demand_vector[2] << endl;
             }
         }
     }
     else if (demand_vector[0] == "create")
     {
         if (demand_vector.size() != 2)
-            cout << "CREATE£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP CREATE\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "CREATEï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP CREATE\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             Create_File(demand_vector[1].c_str());
-            cout << "³É¹¦´´½¨ÎÄ¼þ" << demand_vector[1] << endl;
+            cout << "ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½" << demand_vector[1] << endl;
         }
     }
     else if (demand_vector[0] == "logout")
     {
         if (demand_vector.size() != 1)
-            cout << "LOGOUT£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP LOGOUT\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "LOGOUTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP LOGOUT\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             User_Logout();
-            cout << "ÓÃ»§³É¹¦µÇ³ö" << endl;
+            cout << "ï¿½Ã»ï¿½ï¿½É¹ï¿½ï¿½Ç³ï¿½" << endl;
         }
     }
     else if (demand_vector[0] == "whoami")
     {
         if (demand_vector.size() != 1)
-            cout << "WHIAMI£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP WHIAMI\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "WHIAMIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP WHIAMI\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             char user_name[USER_NAME_MAX];
-            cout << "userid£º" << Get_User(user_name) << endl;
-            cout << "username£º" << user_name << endl;
+            cout << "useridï¿½ï¿½" << Get_User(user_name) << endl;
+            cout << "usernameï¿½ï¿½" << user_name << endl;
         }
     }
     else if (demand_vector[0] == "openlist")
     {
         if (demand_vector.size() != 1)
-            cout << "WHIAMI£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP WHIAMI\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "WHIAMIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP WHIAMI\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
-            cout << "µ±Ç°´ò¿ªµÄÎÄ¼þÓÐ£º" << endl;
+            cout << "ï¿½ï¿½Ç°ï¿½ò¿ªµï¿½ï¿½Ä¼ï¿½ï¿½Ð£ï¿½" << endl;
             for (auto &it : file_open)
             {
                 cout << it.first << endl;
@@ -445,59 +445,59 @@ void Switch_Demand(vector<string> demand_vector, map<string, File *> file_open)
     else if (demand_vector[0] == "format")
     {
         if (demand_vector.size() != 1)
-            cout << "FORMAT£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP FORMAT\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "FORMATï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP FORMAT\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             Init();
             Activate();
-            cout << "ÒÑ³É¹¦¸ñÊ½»¯ÎÄ¼þ¾í" << endl;
+            cout << "ï¿½Ñ³É¹ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½" << endl;
         }
     }
     else if (demand_vector[0] == "register")
     {
         if (demand_vector.size() != 3)
-            cout << "REGISTER£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP REGISTER\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "REGISTERï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP REGISTER\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             User_Register(demand_vector[1].c_str(), demand_vector[2].c_str());
-            cout << "³É¹¦´´½¨ÓÃ»§" << endl;
+            cout << "ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½" << endl;
         }
     }
     else if (demand_vector[0] == "deleteaccount")
     {
         if (demand_vector.size() != 2)
-            cout << "DELETEACCOUNT£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP DELETEACCOUNT\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "DELETEACCOUNTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP DELETEACCOUNT\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             User_Delete(demand_vector[1].c_str());
-            cout << "³É¹¦É¾³ýÓÃ»§" << endl;
+            cout << "ï¿½É¹ï¿½É¾ï¿½ï¿½ï¿½Ã»ï¿½" << endl;
         }
     }
     else if (demand_vector[0] == "su")
     {
         if (demand_vector.size() != 3)
-            cout << "SU£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP SU\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "SUï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP SU\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             User_Logout();
             User_Login(demand_vector[1].c_str(), demand_vector[2].c_str());
-            cout << "³É¹¦¸ü»»ÓÃ»§" << endl;
+            cout << "ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½" << endl;
         }
     }
     else if (demand_vector[0] == "chgrp")
     {
         if (demand_vector.size() != 3)
-            cout << "CHGRP£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP CHGRP\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "CHGRPï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP CHGRP\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             Change_User_Group(demand_vector[1].c_str(), atoi(demand_vector[2].c_str()));
-            cout << "³É¹¦¸ü¸ÄÓÃ»§" << demand_vector[1] << "µ½" << demand_vector[2] << "×é" << endl;
+            cout << "ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½" << demand_vector[1] << "ï¿½ï¿½" << demand_vector[2] << "ï¿½ï¿½" << endl;
         }
     }
     else if (demand_vector[0] == "userlist")
     {
         if (demand_vector.size() != 1)
-            cout << "USERLIST£ºÃüÁîÓï·¨²»ÕýÈ·£¬Ê¹ÓÃ\"HELP USERLIST\"ÃüÁî²é¿´Ê¹ÓÃ¹æÔò" << endl;
+            cout << "USERLISTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¹ï¿½ï¿½\"HELP USERLIST\"ï¿½ï¿½ï¿½ï¿½é¿´Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½" << endl;
         else
         {
             Show_User_List();
@@ -505,6 +505,6 @@ void Switch_Demand(vector<string> demand_vector, map<string, File *> file_open)
     }
     else
     {
-        cout << demand_vector[0] << "²»ÊÇÄÚ²¿»òÍâ²¿ÃüÁî£¬Ò²²»ÊÇ¿ÉÔËÐÐµÄ³ÌÐò»òÅú´¦ÀíÎÄ¼þ¡£" << endl;
+        cout << demand_vector[0] << "ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½â²¿ï¿½ï¿½ï¿½î£¬Ò²ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ÐµÄ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½" << endl;
     }
 }

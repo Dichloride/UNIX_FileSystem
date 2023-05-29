@@ -1,6 +1,6 @@
 #pragma once
 #include "../include/head.h"
-// ÃüÁî´¦ÀíËùÓÃµÄÍ·ÎÄ¼ş
+// å‘½ä»¤å¤„ç†æ‰€ç”¨çš„å¤´æ–‡ä»¶
 #include <vector>
 #include <sstream>
 #include <algorithm>

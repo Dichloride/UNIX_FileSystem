@@ -1,6 +1,6 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
-//*******************¸÷¸öh/cppĞèÒªÊ¹ÓÃµÄ¿â**************
+//*******************å„ä¸ªh/cppéœ€è¦ä½¿ç”¨çš„åº“**************
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -10,62 +10,62 @@
 #include <string.h>
 using namespace std;
 
-//************************³£Á¿¶¨Òå**********************
-//--------------------- ÎÄ¼ş ---------------------------
-// ÎÄ¼ş¾íÃû³Æ
+//************************å¸¸é‡å®šä¹‰**********************
+//--------------------- æ–‡ä»¶ ---------------------------
+// æ–‡ä»¶å·åç§°
 static const string DISK_NAME = "myDisk.img";
-// ÎÄ¼ş¿ÉÒÔÊ¹ÓÃµÄ×î´ó½ÚµãÊıÁ¿
+// æ–‡ä»¶å¯ä»¥ä½¿ç”¨çš„æœ€å¤§èŠ‚ç‚¹æ•°é‡
 static const unsigned int NINODE = 10;
-// ×ÓÄ¿Â¼µÄ×î´óÊıÁ¿
+// å­ç›®å½•çš„æœ€å¤§æ•°é‡
 static const unsigned int SUBDIRECTORY_NUM = 12;
-// ÎÄ¼şÃû³ÆµÄ×î´ó³¤¶È
+// æ–‡ä»¶åç§°çš„æœ€å¤§é•¿åº¦
 static const unsigned int FILE_NAME_MAX = 32;
-//--------------------- ÓÃ»§ ---------------------------
-// ÓÃ»§×î´óÊıÁ¿
+//--------------------- ç”¨æˆ· ---------------------------
+// ç”¨æˆ·æœ€å¤§æ•°é‡
 static const unsigned int USER_NUM = 6;
-// ÓÃ»§Ãû³ÆµÄ×î´ó³¤¶È
+// ç”¨æˆ·åç§°çš„æœ€å¤§é•¿åº¦
 static const unsigned int USER_NAME_MAX = 16;
-// ÓÃ»§ÃÜÂëµÄ×î´ó³¤¶È
+// ç”¨æˆ·å¯†ç çš„æœ€å¤§é•¿åº¦
 static const unsigned int USER_PASSWORD_MAX = 32;
-//--------------------- ¿Õ¼ä·ÖÅä ---------------------------
-// ¿ÕÏĞÅÌ¿é·Ö×éÁ´Ê½Ë÷ÒıµÄÒ»¸öÁ´µÄ´óĞ¡
+//--------------------- ç©ºé—´åˆ†é… ---------------------------
+// ç©ºé—²ç›˜å—åˆ†ç»„é“¾å¼ç´¢å¼•çš„ä¸€ä¸ªé“¾çš„å¤§å°
 static const unsigned int FREE_BLOCK_GROUP_NUM = 50;
-// Block´óĞ¡
+// Blockå¤§å°
 static const unsigned int BLOCK_SIZE = 512;
-// InodeÊıÁ¿
+// Inodeæ•°é‡
 static const unsigned int INODE_NUM = 256;
-// SuperBlock´óĞ¡
+// SuperBlockå¤§å°
 static const unsigned int SUPERBLOCK_SIZE = 512;
-// SuperBlock¿ªÊ¼µÄÎ»ÖÃ£¨ÒÔblockÎªµ¥Î»£©
+// SuperBlockå¼€å§‹çš„ä½ç½®ï¼ˆä»¥blockä¸ºå•ä½ï¼‰
 static const unsigned int SUPERBLOCK_POSITION = 1;
-// InodeÎ»Ê¾Í¼´óĞ¡
+// Inodeä½ç¤ºå›¾å¤§å°
 static const unsigned int INODE_BITMAP_SIZE = sizeof(int) * INODE_NUM;
-// InodeÎ»Ê¾Í¼¿ªÊ¼µÄÎ»ÖÃ£¨ÒÔblockÎªµ¥Î»£©
+// Inodeä½ç¤ºå›¾å¼€å§‹çš„ä½ç½®ï¼ˆä»¥blockä¸ºå•ä½ï¼‰
 static const unsigned int INODE_BITMAP_POSITION = int(SUPERBLOCK_POSITION + SUPERBLOCK_SIZE / BLOCK_SIZE);
-// Inode´óĞ¡
+// Inodeå¤§å°
 static const unsigned int INODE_SIZE = 64;
-// Inode¿ªÊ¼µÄÎ»ÖÃ£¨ÒÔblockÎªµ¥Î»£©
+// Inodeå¼€å§‹çš„ä½ç½®ï¼ˆä»¥blockä¸ºå•ä½ï¼‰
 static const unsigned int INODE_POSITION = int(INODE_BITMAP_POSITION + INODE_BITMAP_SIZE / BLOCK_SIZE);
-// BlockÊıÁ¿
+// Blockæ•°é‡
 static const unsigned int BLOCK_NUM = 100000U;
-// Block¿ªÊ¼µÄÎ»ÖÃ£¨ÒÔblockÎªµ¥Î»£©
+// Blockå¼€å§‹çš„ä½ç½®ï¼ˆä»¥blockä¸ºå•ä½ï¼‰
 static const unsigned int BLOCK_POSITION = int(INODE_POSITION + INODE_SIZE * INODE_NUM / BLOCK_SIZE);
-// DirectoryÎ»ÓÚµÄInode¿é
+// Directoryä½äºçš„Inodeå—
 static const unsigned int DIRECTORY_INODE = 2;
 
-//************************Êı¾İ½á¹¹**********************
+//************************æ•°æ®ç»“æ„**********************
 
-// Inode½á¹¹Ìå
+// Inodeç»“æ„ä½“
 struct Inode
 {
 
 	enum INodeMode
 	{
-		IFILE = 0x1,	 // ÊÇÎÄ¼ş
-		IDIRECTORY = 0x2 // ÊÇÄ¿Â¼
+		IFILE = 0x1,	 // æ˜¯æ–‡ä»¶
+		IDIRECTORY = 0x2 // æ˜¯ç›®å½•
 	};
 	enum INodePermission
-	{ // ·ÖÎªÎÄ¼şÖ÷¡¢ÎÄ¼şÖ÷Í¬×éºÍÆäËûÓÃ»§
+	{ // åˆ†ä¸ºæ–‡ä»¶ä¸»ã€æ–‡ä»¶ä¸»åŒç»„å’Œå…¶ä»–ç”¨æˆ·
 		OWNER_R = 0400,
 		OWNER_W = 0200,
 		OWNER_E = 0100,
@@ -77,69 +77,69 @@ struct Inode
 		ELSE_E = 01,
 	};
 
-	unsigned int i_addr[NINODE]; // Âß¼­¿éºÅºÍÎïÀí¿éºÅ×ª»»µÄË÷Òı±í
-	unsigned int i_size;		 // ÎÄ¼ş´óĞ¡£¬×Ö½ÚÎªµ¥Î»
-	unsigned short i_count;		 // ÒıÓÃ¼ÆÊı
-	unsigned short i_number;	 // InodeµÄ±àºÅ
-	unsigned short i_mode;		 // ÎÄ¼ş¹¤×÷·½Ê½ĞÅÏ¢
-	unsigned short i_permission; // ÎÄ¼şÈ¨ÏŞ
-	unsigned short i_uid;		 // ÎÄ¼şËùÓĞÕßµÄÓÃ»§±êÊ¶
-	unsigned short i_gid;		 // ÎÄ¼şËùÓĞÕßµÄ×é±êÊ¶
-	time_t i_time;				 // ×îºó·ÃÎÊÊ±¼ä
+	unsigned int i_addr[NINODE]; // é€»è¾‘å—å·å’Œç‰©ç†å—å·è½¬æ¢çš„ç´¢å¼•è¡¨
+	unsigned int i_size;		 // æ–‡ä»¶å¤§å°ï¼Œå­—èŠ‚ä¸ºå•ä½
+	unsigned short i_count;		 // å¼•ç”¨è®¡æ•°
+	unsigned short i_number;	 // Inodeçš„ç¼–å·
+	unsigned short i_mode;		 // æ–‡ä»¶å·¥ä½œæ–¹å¼ä¿¡æ¯
+	unsigned short i_permission; // æ–‡ä»¶æƒé™
+	unsigned short i_uid;		 // æ–‡ä»¶æ‰€æœ‰è€…çš„ç”¨æˆ·æ ‡è¯†
+	unsigned short i_gid;		 // æ–‡ä»¶æ‰€æœ‰è€…çš„ç»„æ ‡è¯†
+	time_t i_time;				 // æœ€åè®¿é—®æ—¶é—´
 };
 
-// SuperBlock½á¹¹Ìå
+// SuperBlockç»“æ„ä½“
 struct SuperBlock
 {
-	unsigned short s_inodenum;				   // Inode×ÜÊı
-	unsigned short s_finodenum;				   // ¿ÕÏĞInodeÊı
-	unsigned short s_blocknum;				   // Block×ÜÊı
-	unsigned short s_fblocknum;				   // ¿ÕÏĞBlockÊı
-	unsigned int s_nfree;					   // Ö±½Ó¹ÜÀíµÄ¿ÕÏĞ¿éÊı
-	unsigned int s_free[FREE_BLOCK_GROUP_NUM]; // ¿ÕÏĞ¿éË÷Òı±í
+	unsigned short s_inodenum;				   // Inodeæ€»æ•°
+	unsigned short s_finodenum;				   // ç©ºé—²Inodeæ•°
+	unsigned short s_blocknum;				   // Blockæ€»æ•°
+	unsigned short s_fblocknum;				   // ç©ºé—²Blockæ•°
+	unsigned int s_nfree;					   // ç›´æ¥ç®¡ç†çš„ç©ºé—²å—æ•°
+	unsigned int s_free[FREE_BLOCK_GROUP_NUM]; // ç©ºé—²å—ç´¢å¼•è¡¨
 };
 
-// Directory½á¹¹Ìå
+// Directoryç»“æ„ä½“
 struct Directory
 {
-	unsigned int d_inodenumber[SUBDIRECTORY_NUM];	  // ×ÓÄ¿Â¼InodeºÅ
-	char d_filename[SUBDIRECTORY_NUM][FILE_NAME_MAX]; // ×ÓÄ¿Â¼ÎÄ¼şÃû
+	unsigned int d_inodenumber[SUBDIRECTORY_NUM];	  // å­ç›®å½•Inodeå·
+	char d_filename[SUBDIRECTORY_NUM][FILE_NAME_MAX]; // å­ç›®å½•æ–‡ä»¶å
 };
 
-// User½á¹¹Ìå
+// Userç»“æ„ä½“
 struct User
 {
-	unsigned short u_id[USER_NUM];				  // ÓÃ»§id
-	unsigned short u_gid[USER_NUM];				  // ÓÃ»§ËùÔÚ×éid
-	char u_name[USER_NUM][USER_NAME_MAX];		  // ÓÃ»§Ãû
-	char u_password[USER_NUM][USER_PASSWORD_MAX]; // ÓÃ»§ÃÜÂë
+	unsigned short u_id[USER_NUM];				  // ç”¨æˆ·id
+	unsigned short u_gid[USER_NUM];				  // ç”¨æˆ·æ‰€åœ¨ç»„id
+	char u_name[USER_NUM][USER_NAME_MAX];		  // ç”¨æˆ·å
+	char u_password[USER_NUM][USER_PASSWORD_MAX]; // ç”¨æˆ·å¯†ç 
 };
 
-// File½á¹¹Ìå
+// Fileç»“æ„ä½“
 struct File
 {
-	unsigned int f_inodeid; // ÎÄ¼şµÄinode±àºÅ
-	unsigned int f_offset;	// ÎÄ¼şµÄ¶ÁĞ´Ö¸ÕëÎ»ÖÃ
-	unsigned int f_uid;		// ÎÄ¼ş´ò¿ªÓÃ»§
+	unsigned int f_inodeid; // æ–‡ä»¶çš„inodeç¼–å·
+	unsigned int f_offset;	// æ–‡ä»¶çš„è¯»å†™æŒ‡é’ˆä½ç½®
+	unsigned int f_uid;		// æ–‡ä»¶æ‰“å¼€ç”¨æˆ·
 };
-//*******************************È«¾Ö±äÁ¿********************************
+//*******************************å…¨å±€å˜é‡********************************
 #ifdef MAIN
-#define EXTERN // ¶¨Òå±äÁ¿
+#define EXTERN // å®šä¹‰å˜é‡
 #else
-#define EXTERN extern // ÉùÃ÷±äÁ¿
+#define EXTERN extern // å£°æ˜å˜é‡
 #endif
 
-EXTERN Directory directory;	   // µ±Ç°Ä¿Â¼
-EXTERN fstream fd;			   // È«¾ÖÎÄ¼şÖ¸Õë
-EXTERN unsigned short user_id; // µ±Ç°ÓÃ»§id
+EXTERN Directory directory;	   // å½“å‰ç›®å½•
+EXTERN fstream fd;			   // å…¨å±€æ–‡ä»¶æŒ‡é’ˆ
+EXTERN unsigned short user_id; // å½“å‰ç”¨æˆ·id
 
-//*********************************º¯Êı²Ù×÷*******************************
+//*********************************å‡½æ•°æ“ä½œ*******************************
 //--------------------tools-----------------------
-// ³õÊ¼»¯Õû¸öÎÄ¼şÏµÍ³¿Õ¼ä
+// åˆå§‹åŒ–æ•´ä¸ªæ–‡ä»¶ç³»ç»Ÿç©ºé—´
 void Init();
-// ´ò¿ªÎÄ¼şÏµÍ³
+// æ‰“å¼€æ–‡ä»¶ç³»ç»Ÿ
 void Activate();
-// Ö¸ÁîËµÃ÷ÎÄµµ
+// æŒ‡ä»¤è¯´æ˜æ–‡æ¡£
 void help();
 void help_attrib();
 void help_cd();
@@ -165,71 +165,71 @@ void help_userlist();
 void help_openlist();
 
 //--------------------Block-----------------------
-// ·ÖÅäÒ»¸öBlock¿é
+// åˆ†é…ä¸€ä¸ªBlockå—
 void Allocate_Block(unsigned int &block_num);
-// ÊÍ·ÅÒ»¸öBlock¿é
+// é‡Šæ”¾ä¸€ä¸ªBlockå—
 void Free_Block(unsigned int block_num);
-// ¶Á³öSuperBlock¿é
+// è¯»å‡ºSuperBlockå—
 void Read_SuperBlock(SuperBlock &superblock);
-// Ğ´SuperBlock¿é
+// å†™SuperBlockå—
 void Write_SuperBlock(SuperBlock &superblock);
-// ¶Á³öBitmap¿é
+// è¯»å‡ºBitmapå—
 void Read_InodeBitMap(unsigned int *inode_bitmap);
-// Ğ´Bitmap¿é
+// å†™Bitmapå—
 void Write_InodeBitMap(unsigned int *inode_bitmap);
-// ¶Á³öUser¿é
+// è¯»å‡ºUserå—
 void Read_User(User &user);
-// Ğ´User¿é
+// å†™Userå—
 void Write_User(User &user);
-// ¶Á³öInode¿é
+// è¯»å‡ºInodeå—
 void Read_Inode(Inode &inode, unsigned int pos);
-// Ğ´Inode¿é
+// å†™Inodeå—
 void Write_Inode(Inode &inode, unsigned int pos);
-// Inode¸ù¾İÂß¼­¿éºÅ¶ÔÓ¦ÎïÀí¿éºÅ
+// Inodeæ ¹æ®é€»è¾‘å—å·å¯¹åº”ç‰©ç†å—å·
 void Get_Block_Pysical_Num(Inode &inode, unsigned int logical_num, unsigned int &physical_num_1, unsigned int &physical_num_2, unsigned int &physical_num_3);
 
 //---------------------File---------------------
-// ´´½¨Ò»¸öÎÄ¼ş
+// åˆ›å»ºä¸€ä¸ªæ–‡ä»¶
 void Create_File(const char *file_name);
-// É¾³ıÒ»¸öÎÄ¼ş
+// åˆ é™¤ä¸€ä¸ªæ–‡ä»¶
 void Delete_File(const char *file_name);
-// Õ¹Ê¾ÎÄ¼şÁĞ±í
+// å±•ç¤ºæ–‡ä»¶åˆ—è¡¨
 void Show_File_List(bool detail);
-// ¸ù¾İÎÄ¼şÃû³Æ´ò¿ªÒ»¸öµ±Ç°Ä¿Â¼µÄÎÄ¼ş
+// æ ¹æ®æ–‡ä»¶åç§°æ‰“å¼€ä¸€ä¸ªå½“å‰ç›®å½•çš„æ–‡ä»¶
 File *Open_File(const char *file_name);
-// ¸ù¾İÎÄ¼ş½á¹¹Ìå¹Ø±ÕÒ»¸öÎÄ¼ş
+// æ ¹æ®æ–‡ä»¶ç»“æ„ä½“å…³é—­ä¸€ä¸ªæ–‡ä»¶
 void Close_File(File *file);
-// Ğ´ÎÄ¼ş
+// å†™æ–‡ä»¶
 unsigned int Write_File(File *file, const char *content);
-// ¸ü¸ÄÎÄ¼şÖ¸Õë
+// æ›´æ”¹æ–‡ä»¶æŒ‡é’ˆ
 void Seek_File(File *file, unsigned int pos);
-// ¶ÁÎÄ¼ş
+// è¯»æ–‡ä»¶
 unsigned int Read_File(File *file, char *content, int length);
-// ¸ü¸ÄÒ»¸öÎÄ¼şµÄÈ¨ÏŞ
+// æ›´æ”¹ä¸€ä¸ªæ–‡ä»¶çš„æƒé™
 void Edit_File_Permission(const char *directory_name, unsigned short permission, bool add);
 
 //------------------Directory----------------------
-// ´´½¨Ò»¸öÄ¿Â¼
+// åˆ›å»ºä¸€ä¸ªç›®å½•
 void Create_Directory(const char *directory_name);
-// ´ò¿ªÒ»¸öÄ¿Â¼
+// æ‰“å¼€ä¸€ä¸ªç›®å½•
 void Open_Directory(const char *directory_name);
-// »ñÈ¡µ±Ç°Ä¿Â¼
+// è·å–å½“å‰ç›®å½•
 string Current_Directory();
-// É¾³ıÒ»¸öÄ¿Â¼
+// åˆ é™¤ä¸€ä¸ªç›®å½•
 void Remove_Directory(const char *directory_name);
 
 //---------------------User------------------------
-// µÇÂ¼ÓÃ»§
+// ç™»å½•ç”¨æˆ·
 void User_Login(const char *user_name, const char *password);
-// µÇ³öÓÃ»§
+// ç™»å‡ºç”¨æˆ·
 void User_Logout();
-// ´´½¨ÓÃ»§
+// åˆ›å»ºç”¨æˆ·
 void User_Register(const char *user_name, const char *password);
-// »ñÈ¡µ±Ç°µÇÂ¼µÄÓÃ»§µÄÓÃ»§ÃûºÍÓÃ»§id
+// è·å–å½“å‰ç™»å½•çš„ç”¨æˆ·çš„ç”¨æˆ·åå’Œç”¨æˆ·id
 unsigned int Get_User(char *username);
-// É¾³ıÓÃ»§
+// åˆ é™¤ç”¨æˆ·
 void User_Delete(const char *user_name);
-// ¸ü¸ÄÓÃ»§µÄËùÊôµÄ×é
+// æ›´æ”¹ç”¨æˆ·çš„æ‰€å±çš„ç»„
 void Change_User_Group(const char *user_name, unsigned int user_group);
-// ÏÔÊ¾ÓÃ»§ÁĞ±í
+// æ˜¾ç¤ºç”¨æˆ·åˆ—è¡¨
 void Show_User_List();

@@ -1,7 +1,7 @@
 #define MAIN
 #include "../include/head.h"
 #include "../include/shell.h"
-// ÃüÁî´¦ÀíËùÓÃµÄÍ·ÎÄ¼ş
+// å‘½ä»¤å¤„ç†æ‰€ç”¨çš„å¤´æ–‡ä»¶
 #include <vector>
 #include <sstream>
 #include <algorithm>
@@ -10,7 +10,7 @@
 int main()
 {
 	cout << "===============================================" << endl;
-	cout << "              ·ÂUNIX V6++ÎÄ¼şÏµÍ³              " << endl;
+	cout << "              ä»¿UNIX V6++æ–‡ä»¶ç³»ç»Ÿ              " << endl;
 	cout << "===============================================" << endl;
 	cout << endl;
 
@@ -23,7 +23,7 @@ int main()
 
 	if (!fd.is_open())
 	{
-		cout << "ÎÄ¼şÏµÍ³²»´æÔÚ£¬°´ÈÎÒâ¼ü½øĞĞ³õÊ¼»¯..." << endl;
+		cout << "æ–‡ä»¶ç³»ç»Ÿä¸å­˜åœ¨ï¼ŒæŒ‰ä»»æ„é”®è¿›è¡Œåˆå§‹åŒ–..." << endl;
 		while (getchar() != '\n')
 			;
 		Init();
@@ -31,7 +31,7 @@ int main()
 	else
 	{
 		fd.close();
-		cout << "ÊÇ·ñ½øĞĞÎÄ¼şÏµÍ³³õÊ¼»¯£¿£¨y/n£©" << endl;
+		cout << "æ˜¯å¦è¿›è¡Œæ–‡ä»¶ç³»ç»Ÿåˆå§‹åŒ–ï¼Ÿï¼ˆy/nï¼‰" << endl;
 		char ch;
 		if ((ch = getchar()) == 'y')
 		{
@@ -50,11 +50,11 @@ int main()
 		{
 			if (Get_User(NULL) == static_cast<unsigned short>(-1))
 			{
-				cout << "ÓÃ»§Î´µÇÂ¼£¬ÇëÊäÈëÓÃ»§ÃûºÍÃÜÂë" << endl;
-				cout << "ÓÃ»§Ãû£º ";
+				cout << "ç”¨æˆ·æœªç™»å½•ï¼Œè¯·è¾“å…¥ç”¨æˆ·åå’Œå¯†ç " << endl;
+				cout << "ç”¨æˆ·åï¼š ";
 				char user_name[USER_NAME_MAX];
 				cin >> user_name;
-				cout << "ÃÜÂë£º ";
+				cout << "å¯†ç ï¼š ";
 				char user_password[USER_PASSWORD_MAX];
 				cin >> user_password;
 				User_Login(user_name, user_password);
@@ -73,7 +73,7 @@ int main()
 		}
 		catch (int &e)
 		{
-			cout << "¡¾´íÎóÂë¡¿" << e << endl;
+			cout << "ã€é”™è¯¯ç ã€‘" << e << endl;
 		}
 		cout << endl;
 	}

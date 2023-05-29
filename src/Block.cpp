@@ -1,156 +1,156 @@
-//**********************ÓĞ¹ØBlockµÄ²Ù×÷µÄº¯Êı***********************
+//**********************æœ‰å…³Blockçš„æ“ä½œçš„å‡½æ•°***********************
 #include "../include/head.h"
 #include "../include/error.h"
 
-// ¶Á³öSuperBlock¿é
+// è¯»å‡ºSuperBlockå—
 void Read_SuperBlock(SuperBlock &superblock)
 {
 	fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
-	// Èç¹ûÃ»ÓĞ´ò¿ªÎÄ¼şÔòÊä³öÌáÊ¾ĞÅÏ¢²¢throw´íÎó
+	// å¦‚æœæ²¡æœ‰æ‰“å¼€æ–‡ä»¶åˆ™è¾“å‡ºæç¤ºä¿¡æ¯å¹¶throwé”™è¯¯
 	if (!fd.is_open())
 	{
-		cout << "ÎŞ·¨´ò¿ªÎÄ¼ş¾ímyDisk.img" << endl;
+		cout << "æ— æ³•æ‰“å¼€æ–‡ä»¶å·myDisk.img" << endl;
 		throw(ERROR_CANT_OPEN_FILE);
 	}
 
-	// ´ÓÄÚ´æ¶Á³ö
+	// ä»å†…å­˜è¯»å‡º
 	fd.seekg(SUPERBLOCK_POSITION * BLOCK_SIZE, ios::beg);
 	fd.read((char *)&superblock, sizeof(superblock));
 	fd.close();
 }
 
-// Ğ´SuperBlock¿é
+// å†™SuperBlockå—
 void Write_SuperBlock(SuperBlock &superblock)
 {
 	fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
-	// Èç¹ûÃ»ÓĞ´ò¿ªÎÄ¼şÔòÊä³öÌáÊ¾ĞÅÏ¢²¢throw´íÎó
+	// å¦‚æœæ²¡æœ‰æ‰“å¼€æ–‡ä»¶åˆ™è¾“å‡ºæç¤ºä¿¡æ¯å¹¶throwé”™è¯¯
 	if (!fd.is_open())
 	{
-		cout << "ÎŞ·¨´ò¿ªÎÄ¼ş¾ímyDisk.img" << endl;
+		cout << "æ— æ³•æ‰“å¼€æ–‡ä»¶å·myDisk.img" << endl;
 		throw(ERROR_CANT_OPEN_FILE);
 	}
 
-	// Ğ´ÈëÄÚ´æ
+	// å†™å…¥å†…å­˜
 	fd.seekg(SUPERBLOCK_POSITION * BLOCK_SIZE, ios::beg);
 	fd.write((char *)&superblock, sizeof(superblock));
 	fd.close();
 }
 
-// ¶Á³öBitmap¿é
+// è¯»å‡ºBitmapå—
 void Read_InodeBitMap(unsigned int *inode_bitmap)
 {
 	fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
-	// Èç¹ûÃ»ÓĞ´ò¿ªÎÄ¼şÔòÊä³öÌáÊ¾ĞÅÏ¢²¢throw´íÎó
+	// å¦‚æœæ²¡æœ‰æ‰“å¼€æ–‡ä»¶åˆ™è¾“å‡ºæç¤ºä¿¡æ¯å¹¶throwé”™è¯¯
 	if (!fd.is_open())
 	{
-		cout << "ÎŞ·¨´ò¿ªÎÄ¼ş¾ímyDisk.img" << endl;
+		cout << "æ— æ³•æ‰“å¼€æ–‡ä»¶å·myDisk.img" << endl;
 		throw(ERROR_CANT_OPEN_FILE);
 	}
 
-	// ´ÓÄÚ´æ¶Á³ö
+	// ä»å†…å­˜è¯»å‡º
 	fd.seekg(INODE_BITMAP_POSITION * BLOCK_SIZE, ios::beg);
 	fd.read((char *)inode_bitmap, sizeof(unsigned int) * INODE_NUM);
 	fd.close();
 }
 
-// Ğ´Bitmap¿é
+// å†™Bitmapå—
 void Write_InodeBitMap(unsigned int *inode_bitmap)
 {
 	fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
-	// Èç¹ûÃ»ÓĞ´ò¿ªÎÄ¼şÔòÊä³öÌáÊ¾ĞÅÏ¢²¢throw´íÎó
+	// å¦‚æœæ²¡æœ‰æ‰“å¼€æ–‡ä»¶åˆ™è¾“å‡ºæç¤ºä¿¡æ¯å¹¶throwé”™è¯¯
 	if (!fd.is_open())
 	{
-		cout << "ÎŞ·¨´ò¿ªÎÄ¼ş¾ímyDisk.img" << endl;
+		cout << "æ— æ³•æ‰“å¼€æ–‡ä»¶å·myDisk.img" << endl;
 		throw(ERROR_CANT_OPEN_FILE);
 	}
 
-	// Ğ´ÈëÄÚ´æ
+	// å†™å…¥å†…å­˜
 	fd.seekg(INODE_BITMAP_POSITION * BLOCK_SIZE, ios::beg);
 	fd.write((char *)inode_bitmap, sizeof(unsigned int) * INODE_NUM);
 	fd.close();
 }
 
-// ¶Á³öUser¿é
+// è¯»å‡ºUserå—
 void Read_User(User &user)
 {
 	fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
-	// Èç¹ûÃ»ÓĞ´ò¿ªÎÄ¼şÔòÊä³öÌáÊ¾ĞÅÏ¢²¢throw´íÎó
+	// å¦‚æœæ²¡æœ‰æ‰“å¼€æ–‡ä»¶åˆ™è¾“å‡ºæç¤ºä¿¡æ¯å¹¶throwé”™è¯¯
 	if (!fd.is_open())
 	{
-		cout << "ÎŞ·¨´ò¿ªÎÄ¼ş¾ímyDisk.img" << endl;
+		cout << "æ— æ³•æ‰“å¼€æ–‡ä»¶å·myDisk.img" << endl;
 		throw(ERROR_CANT_OPEN_FILE);
 	}
 
-	// ´ÓÄÚ´æ¶Á³ö
+	// ä»å†…å­˜è¯»å‡º
 	fd.seekg((BLOCK_POSITION + 1) * BLOCK_SIZE, ios::beg);
 	fd.read((char *)&user, sizeof(user));
 	fd.close();
 }
 
-// Ğ´User¿é
+// å†™Userå—
 void Write_User(User &user)
 {
 	fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
-	// Èç¹ûÃ»ÓĞ´ò¿ªÎÄ¼şÔòÊä³öÌáÊ¾ĞÅÏ¢²¢throw´íÎó
+	// å¦‚æœæ²¡æœ‰æ‰“å¼€æ–‡ä»¶åˆ™è¾“å‡ºæç¤ºä¿¡æ¯å¹¶throwé”™è¯¯
 	if (!fd.is_open())
 	{
-		cout << "ÎŞ·¨´ò¿ªÎÄ¼ş¾ímyDisk.img" << endl;
+		cout << "æ— æ³•æ‰“å¼€æ–‡ä»¶å·myDisk.img" << endl;
 		throw(ERROR_CANT_OPEN_FILE);
 	}
 
-	// Ğ´ÈëÄÚ´æ
+	// å†™å…¥å†…å­˜
 	fd.seekg((BLOCK_POSITION + 1) * BLOCK_SIZE, ios::beg);
 	fd.write((char *)&user, sizeof(user));
 	fd.close();
 }
 
-// ¶Á³öInode¿é
+// è¯»å‡ºInodeå—
 void Read_Inode(Inode &inode, unsigned int pos)
 {
 	fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
-	// Èç¹ûÃ»ÓĞ´ò¿ªÎÄ¼şÔòÊä³öÌáÊ¾ĞÅÏ¢²¢throw´íÎó
+	// å¦‚æœæ²¡æœ‰æ‰“å¼€æ–‡ä»¶åˆ™è¾“å‡ºæç¤ºä¿¡æ¯å¹¶throwé”™è¯¯
 	if (!fd.is_open())
 	{
-		cout << "ÎŞ·¨´ò¿ªÎÄ¼ş¾ímyDisk.img" << endl;
+		cout << "æ— æ³•æ‰“å¼€æ–‡ä»¶å·myDisk.img" << endl;
 		throw(ERROR_CANT_OPEN_FILE);
 	}
 
-	// ´ÓÄÚ´æ¶Á³ö
+	// ä»å†…å­˜è¯»å‡º
 	fd.seekg(INODE_POSITION * BLOCK_SIZE + pos * INODE_SIZE, ios::beg);
 	fd.read((char *)&inode, sizeof(inode));
 	fd.close();
 }
 
-// Ğ´Inode¿é
+// å†™Inodeå—
 void Write_Inode(Inode &inode, unsigned int pos)
 {
 	fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
-	// Èç¹ûÃ»ÓĞ´ò¿ªÎÄ¼şÔòÊä³öÌáÊ¾ĞÅÏ¢²¢throw´íÎó
+	// å¦‚æœæ²¡æœ‰æ‰“å¼€æ–‡ä»¶åˆ™è¾“å‡ºæç¤ºä¿¡æ¯å¹¶throwé”™è¯¯
 	if (!fd.is_open())
 	{
-		cout << "ÎŞ·¨´ò¿ªÎÄ¼ş¾ímyDisk.img" << endl;
+		cout << "æ— æ³•æ‰“å¼€æ–‡ä»¶å·myDisk.img" << endl;
 		throw(ERROR_CANT_OPEN_FILE);
 	}
 
-	// Ğ´ÈëÄÚ´æ
+	// å†™å…¥å†…å­˜
 	fd.seekg(INODE_POSITION * BLOCK_SIZE + pos * INODE_SIZE, ios::beg);
 	fd.write((char *)&inode, sizeof(inode));
 	fd.close();
 }
 
-// ·ÖÅäÒ»¸öBlock¿é
+// åˆ†é…ä¸€ä¸ªBlockå—
 void Allocate_Block(unsigned int &block_num)
 {
 	SuperBlock superblock;
-	// ´ÓÄÚ´æ¶Á³ö
+	// ä»å†…å­˜è¯»å‡º
 	Read_SuperBlock(superblock);
 
-	// Èç¹ûÃ»ÓĞfreeµÄÁË
+	// å¦‚æœæ²¡æœ‰freeçš„äº†
 	if (superblock.s_nfree == 0)
 	{
 		if (superblock.s_free[0] == 0)
 		{
-			cout << "Ã»ÓĞ¿Õ¼ä¼ÌĞø·ÖÅäÒ»¸öBlock£¡";
+			cout << "æ²¡æœ‰ç©ºé—´ç»§ç»­åˆ†é…ä¸€ä¸ªBlockï¼";
 			throw(ERROR_OUT_OF_SPACE);
 		}
 		block_num = superblock.s_free[0];
@@ -167,17 +167,17 @@ void Allocate_Block(unsigned int &block_num)
 		superblock.s_fblocknum--;
 	}
 
-	// Ğ´ÈëÄÚ´æ
+	// å†™å…¥å†…å­˜
 	Write_SuperBlock(superblock);
 }
-// ÊÍ·ÅÒ»¸öBlock¿é
+// é‡Šæ”¾ä¸€ä¸ªBlockå—
 void Free_Block(unsigned int block_num)
 {
 	SuperBlock superblock;
-	// ´ÓÄÚ´æ¶Á³ö
+	// ä»å†…å­˜è¯»å‡º
 	Read_SuperBlock(superblock);
 
-	// Èç¹û¸Ã¿ÕÏĞ¿éÒÑÂú£¬ĞèÒªÊ¹superblockÖ¸ÏòÒ»¸öĞÂµÄ¿Õ¿é
+	// å¦‚æœè¯¥ç©ºé—²å—å·²æ»¡ï¼Œéœ€è¦ä½¿superblockæŒ‡å‘ä¸€ä¸ªæ–°çš„ç©ºå—
 	if (superblock.s_nfree == FREE_BLOCK_GROUP_NUM - 1)
 	{
 		fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
@@ -196,7 +196,7 @@ void Free_Block(unsigned int block_num)
 	Write_SuperBlock(superblock);
 }
 
-// Inode¸ù¾İÂß¼­¿éºÅ¶ÔÓ¦ÎïÀí¿éºÅ£¨pysical_num_1ÎªÊµ¼ÊÎïÀí¿éºÅ£¬pysical_num_2ÎªÆäÉÏÒ»¼¶Ë÷ÒıÎïÀí¿éºÅ£¬pysical_num_3ÎªÆäÉÏÉÏ¼¶Ë÷ÒıÎïÀí¿éºÅ£¬£©
+// Inodeæ ¹æ®é€»è¾‘å—å·å¯¹åº”ç‰©ç†å—å·ï¼ˆpysical_num_1ä¸ºå®é™…ç‰©ç†å—å·ï¼Œpysical_num_2ä¸ºå…¶ä¸Šä¸€çº§ç´¢å¼•ç‰©ç†å—å·ï¼Œpysical_num_3ä¸ºå…¶ä¸Šä¸Šçº§ç´¢å¼•ç‰©ç†å—å·ï¼Œï¼‰
 void Get_Block_Pysical_Num(Inode &inode, unsigned int logical_num, unsigned int &physical_num_1, unsigned int &physical_num_2, unsigned int &physical_num_3)
 {
 	if (logical_num <= 5)
@@ -207,13 +207,13 @@ void Get_Block_Pysical_Num(Inode &inode, unsigned int logical_num, unsigned int 
 	{
 		unsigned int block_map_1_index = (logical_num - 6) / (BLOCK_SIZE / sizeof(unsigned int)) + 6;
 		unsigned int block_map_1[BLOCK_SIZE / sizeof(unsigned int)];
-		// ´ÓÄÚ´æ¶Á³ö
+		// ä»å†…å­˜è¯»å‡º
 		fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
 		fd.seekg((BLOCK_POSITION + inode.i_addr[block_map_1_index]) * BLOCK_SIZE, ios::beg);
 		fd.read((char *)&block_map_1, sizeof(block_map_1));
 		fd.close();
 
-		// ÕÒµ½ÏàÓ¦µÄ¿éºÅ
+		// æ‰¾åˆ°ç›¸åº”çš„å—å·
 		physical_num_1 = block_map_1[(logical_num - 6) % (BLOCK_SIZE / sizeof(unsigned int))];
 		physical_num_2 = inode.i_addr[block_map_1_index];
 	}
@@ -222,7 +222,7 @@ void Get_Block_Pysical_Num(Inode &inode, unsigned int logical_num, unsigned int 
 		unsigned int block_map_2_index = (logical_num - 262) / (BLOCK_SIZE / sizeof(unsigned int)) / (BLOCK_SIZE / sizeof(unsigned int)) + 8;
 		unsigned int block_map_2[BLOCK_SIZE / sizeof(unsigned int)];
 
-		// ´ÓÄÚ´æ¶Á³ö
+		// ä»å†…å­˜è¯»å‡º
 		fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
 		fd.seekg((BLOCK_POSITION + inode.i_addr[block_map_2_index]) * BLOCK_SIZE, ios::beg);
 		fd.read((char *)&block_map_2, sizeof(block_map_2));
@@ -231,20 +231,20 @@ void Get_Block_Pysical_Num(Inode &inode, unsigned int logical_num, unsigned int 
 		unsigned int block_map_1_index = ((logical_num - 262) / (BLOCK_SIZE / sizeof(unsigned int))) % (BLOCK_SIZE / sizeof(unsigned int));
 		unsigned int block_map_1[BLOCK_SIZE / sizeof(unsigned int)];
 
-		// ´ÓÄÚ´æ¶Á³ö
+		// ä»å†…å­˜è¯»å‡º
 		fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
 		fd.seekg((BLOCK_POSITION + block_map_2[block_map_1_index]) * BLOCK_SIZE, ios::beg);
 		fd.read((char *)&block_map_1, sizeof(block_map_1));
 		fd.close();
 
-		// ÕÒµ½ÏàÓ¦µÄ¿éºÅ
+		// æ‰¾åˆ°ç›¸åº”çš„å—å·
 		physical_num_1 = block_map_1[(logical_num - 262) % (BLOCK_SIZE / sizeof(unsigned int))];
 		physical_num_2 = block_map_2[block_map_1_index];
 		physical_num_3 = inode.i_addr[block_map_2_index];
 	}
 	else
 	{
-		cout << "Âß¼­¿éºÅ³¬³öË÷Òı" << endl;
+		cout << "é€»è¾‘å—å·è¶…å‡ºç´¢å¼•" << endl;
 		throw(ERROT_OUT_OF_RANGE);
 	}
 }

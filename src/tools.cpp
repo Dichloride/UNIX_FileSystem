@@ -1,37 +1,37 @@
 #include "../include/head.h"
 #include "../include/error.h"
 
-// ³õÊ¼»¯Õû¸öÎÄ¼şÏµÍ³¿Õ¼ä
+// åˆå§‹åŒ–æ•´ä¸ªæ–‡ä»¶ç³»ç»Ÿç©ºé—´
 void Init()
 {
-	// ÔÚµ±Ç°Ä¿ĞÂ½¨ÎÄ¼ş×÷ÎªÎÄ¼ş¾í
+	// åœ¨å½“å‰ç›®æ–°å»ºæ–‡ä»¶ä½œä¸ºæ–‡ä»¶å·
 	fstream fd(DISK_NAME, ios::out);
 	fd.close();
 	fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
 
-	// Èç¹ûÃ»ÓĞ´ò¿ªÎÄ¼şÔòÊä³öÌáÊ¾ĞÅÏ¢²¢throw´íÎó
+	// å¦‚æœæ²¡æœ‰æ‰“å¼€æ–‡ä»¶åˆ™è¾“å‡ºæç¤ºä¿¡æ¯å¹¶throwé”™è¯¯
 	if (!fd.is_open())
 	{
-		cout << "ÎŞ·¨´ò¿ªÎÄ¼ş¾ímyDisk.img" << endl;
+		cout << "æ— æ³•æ‰“å¼€æ–‡ä»¶å·myDisk.img" << endl;
 		throw(ERROR_CANT_OPEN_FILE);
 	}
 
-	// ¶ÔSuperBlock½øĞĞ³õÊ¼»¯
+	// å¯¹SuperBlockè¿›è¡Œåˆå§‹åŒ–
 	SuperBlock superblock;
 	superblock.s_inodenum = INODE_NUM;
-	// ×Ü¿éÊı = BlockÊı + SuperBlockËùÕ¼¿éÊı + InodeÎ»Í¼ËùÕ¼¿éÊı+ InodeËùÕ¼¿éÊı
+	// æ€»å—æ•° = Blockæ•° + SuperBlockæ‰€å å—æ•° + Inodeä½å›¾æ‰€å å—æ•°+ Inodeæ‰€å å—æ•°
 	superblock.s_blocknum = BLOCK_NUM + BLOCK_POSITION;
-	superblock.s_finodenum = INODE_NUM - 2; // ÓĞÁ½¸öÒÑ¾­±»ÓÃ
-	superblock.s_fblocknum = BLOCK_NUM - 2; // ÓĞÁ½¸öÒÑ¾­±»ÓÃ
-	// Ö±½Ó¹ÜÀíµÄBlock¿Õ¼ä£¨0-49£©
+	superblock.s_finodenum = INODE_NUM - 2; // æœ‰ä¸¤ä¸ªå·²ç»è¢«ç”¨
+	superblock.s_fblocknum = BLOCK_NUM - 2; // æœ‰ä¸¤ä¸ªå·²ç»è¢«ç”¨
+	// ç›´æ¥ç®¡ç†çš„Blockç©ºé—´ï¼ˆ0-49ï¼‰
 	for (int i = 0; i < FREE_BLOCK_GROUP_NUM; i++)
 		superblock.s_free[i] = FREE_BLOCK_GROUP_NUM - 1 - i;
-	superblock.s_nfree = FREE_BLOCK_GROUP_NUM - 1 - 2; // ÓĞÁ½¸öÒÑ¾­±»ÓÃ
-	// Ğ´ÈëÄÚ´æ
+	superblock.s_nfree = FREE_BLOCK_GROUP_NUM - 1 - 2; // æœ‰ä¸¤ä¸ªå·²ç»è¢«ç”¨
+	// å†™å…¥å†…å­˜
 	fd.seekg(SUPERBLOCK_POSITION * BLOCK_SIZE, ios::beg);
 	fd.write((char *)&superblock, sizeof(superblock));
 
-	// ½øĞĞ³É×éÁ´½Ó
+	// è¿›è¡Œæˆç»„é“¾æ¥
 	unsigned int stack[FREE_BLOCK_GROUP_NUM];
 	for (int i = 2; i <= BLOCK_NUM / FREE_BLOCK_GROUP_NUM; i++)
 	{
@@ -41,7 +41,7 @@ void Init()
 		}
 		if (i == BLOCK_NUM / FREE_BLOCK_GROUP_NUM)
 			stack[0] = 0;
-		// Ğ´ÈëÄÚ´æ
+		// å†™å…¥å†…å­˜
 		if (i != BLOCK_NUM / FREE_BLOCK_GROUP_NUM)
 			fd.seekg((BLOCK_POSITION + stack[0] - FREE_BLOCK_GROUP_NUM) * BLOCK_SIZE, ios::beg);
 		else
@@ -49,34 +49,34 @@ void Init()
 		fd.write((char *)&stack, sizeof(stack));
 	}
 
-	// ³õÊ¼»¯Î»Í¼£¨³õÊ¼»¯Ç°Á½¸öÎª1£¬Ê£ÏÂµÄÔÚ¶¨ÒåÊ±ÒÑ¾­±»ÖÃÎª0£©
+	// åˆå§‹åŒ–ä½å›¾ï¼ˆåˆå§‹åŒ–å‰ä¸¤ä¸ªä¸º1ï¼Œå‰©ä¸‹çš„åœ¨å®šä¹‰æ—¶å·²ç»è¢«ç½®ä¸º0ï¼‰
 	unsigned int inode_bitmap[INODE_NUM] = {0};
 	inode_bitmap[0] = 1;
 	inode_bitmap[1] = 1;
-	// Ğ´ÈëÄÚ´æ
-	// Ğ´ÈëÄÚ´æ
+	// å†™å…¥å†…å­˜
+	// å†™å…¥å†…å­˜
 	fd.seekg(INODE_BITMAP_POSITION * BLOCK_SIZE, ios::beg);
 	fd.write((char *)inode_bitmap, sizeof(unsigned int) * INODE_NUM);
 
-	// ´´½¨¸ùÄ¿Â¼
+	// åˆ›å»ºæ ¹ç›®å½•
 	Inode Inode_root;
-	Inode_root.i_number = 0;			   // InodeµÄ±àºÅ
-	Inode_root.i_addr[0] = 0;			   // ¶ÔÓ¦0ºÅBlock
-	Inode_root.i_mode = Inode::IDIRECTORY; // Ä¿Â¼
-	Inode_root.i_count = 0;				   // ÒıÓÃ¼ÆÊı
-	Inode_root.i_uid = 0;				   // ¹ÜÀíÔ±
-	Inode_root.i_gid = 1;				   // ÎÄ¼şËùÓĞÕßµÄ×é±êÊ¶
-	Inode_root.i_size = 0;				   // Ä¿Â¼´óĞ¡Îª0
-	Inode_root.i_time = time(NULL);		   // ×îºó·ÃÎÊÊ±¼ä
+	Inode_root.i_number = 0;			   // Inodeçš„ç¼–å·
+	Inode_root.i_addr[0] = 0;			   // å¯¹åº”0å·Block
+	Inode_root.i_mode = Inode::IDIRECTORY; // ç›®å½•
+	Inode_root.i_count = 0;				   // å¼•ç”¨è®¡æ•°
+	Inode_root.i_uid = 0;				   // ç®¡ç†å‘˜
+	Inode_root.i_gid = 1;				   // æ–‡ä»¶æ‰€æœ‰è€…çš„ç»„æ ‡è¯†
+	Inode_root.i_size = 0;				   // ç›®å½•å¤§å°ä¸º0
+	Inode_root.i_time = time(NULL);		   // æœ€åè®¿é—®æ—¶é—´
 	Inode_root.i_permission = 0777;
-	// Ğ´ÈëÄÚ´æ
+	// å†™å…¥å†…å­˜
 	fd.seekg(INODE_POSITION * BLOCK_SIZE, ios::beg);
 	fd.write((char *)&Inode_root, sizeof(Inode_root));
-	// 0ºÅBlockĞ´ÈëDirectory
+	// 0å·Blockå†™å…¥Directory
 	Directory root_directory;
-	strcpy(root_directory.d_filename[0], "."); // 0ÊÇ×Ô¼º
+	strcpy(root_directory.d_filename[0], "."); // 0æ˜¯è‡ªå·±
 	root_directory.d_inodenumber[0] = 0;
-	strcpy(root_directory.d_filename[1], ".."); // 1ÊÇ¸¸Ç×£¨´Ë´¦»¹ÊÇ×Ô¼º£©
+	strcpy(root_directory.d_filename[1], ".."); // 1æ˜¯çˆ¶äº²ï¼ˆæ­¤å¤„è¿˜æ˜¯è‡ªå·±ï¼‰
 	root_directory.d_inodenumber[1] = 0;
 	for (int i = 2; i < SUBDIRECTORY_NUM; i++)
 	{
@@ -89,22 +89,22 @@ void Init()
 	fd.seekg(BLOCK_POSITION * BLOCK_SIZE, ios::beg);
 	fd.write((char *)&root_directory, sizeof(root_directory));
 
-	// ´´½¨ÓÃ»§ÎÄ¼ş
+	// åˆ›å»ºç”¨æˆ·æ–‡ä»¶
 	Inode Inode_accounting;
-	Inode_accounting.i_number = 1;			// InodeµÄ±àºÅ
-	Inode_accounting.i_addr[0] = 1;			// ¶ÔÓ¦1ºÅBlock
-	Inode_accounting.i_mode = Inode::IFILE; // ÎÄ¼ş
-	Inode_accounting.i_count = 0;			// ÒıÓÃ¼ÆÊı
-	Inode_accounting.i_permission = 0700;	// ¹ÜÀíÔ±¿É¶ÁĞ´
-	Inode_accounting.i_uid = 0;				// ¹ÜÀíÔ±
-	Inode_accounting.i_gid = 1;				// ÎÄ¼şËùÓĞÕßµÄ×é±êÊ¶
-	Inode_accounting.i_size = 0;			// Ä¿Â¼´óĞ¡Îª1
-	Inode_accounting.i_time = time(NULL);	// ×îºó·ÃÎÊÊ±¼ä
-	// Ğ´ÈëÄÚ´æ
+	Inode_accounting.i_number = 1;			// Inodeçš„ç¼–å·
+	Inode_accounting.i_addr[0] = 1;			// å¯¹åº”1å·Block
+	Inode_accounting.i_mode = Inode::IFILE; // æ–‡ä»¶
+	Inode_accounting.i_count = 0;			// å¼•ç”¨è®¡æ•°
+	Inode_accounting.i_permission = 0700;	// ç®¡ç†å‘˜å¯è¯»å†™
+	Inode_accounting.i_uid = 0;				// ç®¡ç†å‘˜
+	Inode_accounting.i_gid = 1;				// æ–‡ä»¶æ‰€æœ‰è€…çš„ç»„æ ‡è¯†
+	Inode_accounting.i_size = 0;			// ç›®å½•å¤§å°ä¸º1
+	Inode_accounting.i_time = time(NULL);	// æœ€åè®¿é—®æ—¶é—´
+	// å†™å…¥å†…å­˜
 	fd.seekg(INODE_POSITION * BLOCK_SIZE + INODE_SIZE, ios::beg);
 	fd.write((char *)&Inode_accounting, sizeof(Inode_accounting));
 
-	// ´´½¨Á½¸öÕË»§
+	// åˆ›å»ºä¸¤ä¸ªè´¦æˆ·
 	User user;
 	strcpy(user.u_name[0], "root");
 	strcpy(user.u_password[0], "root");
@@ -126,17 +126,17 @@ void Init()
 	}
 	user.u_gid[0] = 1;
 	user.u_gid[1] = 2;
-	// Ğ´ÈëÄÚ´æ
+	// å†™å…¥å†…å­˜
 	fd.seekg(BLOCK_POSITION * BLOCK_SIZE + Inode_accounting.i_addr[0] * BLOCK_SIZE, ios::beg);
 	fd.write((char *)&user, sizeof(user));
 
-	// ½øÈë¸ùÄ¿Â¼
+	// è¿›å…¥æ ¹ç›®å½•
 	fd.seekg(BLOCK_POSITION * BLOCK_SIZE, ios::beg);
 	fd.read((char *)&directory, sizeof(directory));
 
 	fd.close();
 
-	// ÒÔrootÓÃ»§´´½¨ÎÄ¼şÄ¿Â¼
+	// ä»¥rootç”¨æˆ·åˆ›å»ºæ–‡ä»¶ç›®å½•
 	user_id = 0;
 	Create_Directory("bin");
 	Create_Directory("etc");
@@ -150,23 +150,23 @@ void Init()
 	Create_File("test.txt");
 }
 
-// ´ò¿ªÎÄ¼şÏµÍ³
+// æ‰“å¼€æ–‡ä»¶ç³»ç»Ÿ
 void Activate()
 {
-	// ´ò¿ªÎÄ¼ş¾í
+	// æ‰“å¼€æ–‡ä»¶å·
 	fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
-	// Èç¹ûÃ»ÓĞ´ò¿ªÎÄ¼şÔòÊä³öÌáÊ¾ĞÅÏ¢²¢throw´íÎó
+	// å¦‚æœæ²¡æœ‰æ‰“å¼€æ–‡ä»¶åˆ™è¾“å‡ºæç¤ºä¿¡æ¯å¹¶throwé”™è¯¯
 	if (!fd.is_open())
 	{
-		cout << "ÎŞ·¨´ò¿ªÎÄ¼ş¾ímyDisk.img" << endl;
+		cout << "æ— æ³•æ‰“å¼€æ–‡ä»¶å·myDisk.img" << endl;
 		throw(ERROR_CANT_OPEN_FILE);
 	}
 
-	// ¶ÁÈ¡µ±Ç°Ä¿Â¼
+	// è¯»å–å½“å‰ç›®å½•
 	fd.seekg(BLOCK_POSITION * BLOCK_SIZE, ios::beg);
 	fd.read((char *)&directory, sizeof(directory));
 
-	// ½«ËùÓĞinodeµÄ´ò¿ªÊıÇåÁã
+	// å°†æ‰€æœ‰inodeçš„æ‰“å¼€æ•°æ¸…é›¶
 	unsigned int inode_bitmap[INODE_NUM];
 	Read_InodeBitMap(inode_bitmap);
 	for (int i = 0; i < INODE_NUM; i++)
@@ -187,30 +187,30 @@ void Activate()
 
 void help()
 {
-	cout << "ÓĞ¹ØÄ³¸öÃüÁîµÄÏêÏ¸ĞÅÏ¢£¬Çë¼üÈë HELP ÃüÁîÃû" << endl;
-	cout << "HELP           °ïÖúÎÄµµ¡£" << endl;
-	cout << "ATTRIB         ÏÔÊ¾»ò¸ü¸ÄÎÄ¼şÊôĞÔ¡£" << endl;
-	cout << "CD             ÏÔÊ¾µ±Ç°Ä¿Â¼µÄÃû³Æ»ò½«Æä¸ü¸Ä¡£" << endl;
-	cout << "DEL            É¾³ıÖÁÉÙÒ»¸öÎÄ¼ş¡£" << endl;
-	cout << "DIR            ÏÔÊ¾Ò»¸öÄ¿Â¼ÖĞµÄÎÄ¼şºÍ×ÓÄ¿Â¼¡£" << endl;
-	cout << "EXIT           ÍË³öÎÄ¼şÏµÍ³¡£" << endl;
-	cout << "MKDIR          ´´½¨Ò»¸öÄ¿Â¼¡£" << endl;
-	cout << "RMDIR          É¾³ıÄ¿Â¼¡£" << endl;
-	cout << "PRINT          ´òÓ¡ÎÄ¼şÄÚÈİ¡£" << endl;
-	cout << "WRITE          ÏòÎÄ¼şÖĞĞ´ÈëÄÚÈİ" << endl;
-	cout << "OPEN           ´ò¿ªÒ»¸öÎÄ¼ş" << endl;
-	cout << "CLOSE          ¹Ø±ÕÒ»¸öÎÄ¼ş" << endl;
-	cout << "CREATE         ´´½¨Ò»¸öÎÄ¼ş" << endl;
-	cout << "OPENLIST       µ±Ç°´ò¿ªÎÄ¼şÁĞ±í" << endl;
-	cout << "FSEEK          ¸ü¸ÄÒ»¸öÎÄ¼şµÄÖ¸Õë" << endl;
-	cout << "LOGOUT         ÓÃ»§ÍË³öµÇÂ¼" << endl;
-	cout << "WHOAMI         ÏÔÊ¾µ±Ç°ÓÃ»§ĞÅÏ¢" << endl;
-	cout << "FORMAT         ¸ñÊ½»¯ÎÄ¼ş¾í" << endl;
-	cout << "REGISTER       ÓÃ»§×¢²á£¨rootÓÃ»§ÏÂ£©" << endl;
-	cout << "DELETEACCOUNT  É¾³ıÓÃ»§£¨rootÓÃ»§ÏÂ£©" << endl;
-	cout << "SU             ¸Ä±äÓÃ»§" << endl;
-	cout << "CHGRP          ¸Ä±äÓÃ»§ËùÊô×é£¨rootÓÃ»§ÏÂ£©" << endl;
-	cout << "USERLIST       ÏÔÊ¾ËùÓĞÓÃ»§ĞÅÏ¢£¨rootÓÃ»§ÏÂ£©" << endl;
+	cout << "æœ‰å…³æŸä¸ªå‘½ä»¤çš„è¯¦ç»†ä¿¡æ¯ï¼Œè¯·é”®å…¥ HELP å‘½ä»¤å" << endl;
+	cout << "HELP           å¸®åŠ©æ–‡æ¡£ã€‚" << endl;
+	cout << "ATTRIB         æ˜¾ç¤ºæˆ–æ›´æ”¹æ–‡ä»¶å±æ€§ã€‚" << endl;
+	cout << "CD             æ˜¾ç¤ºå½“å‰ç›®å½•çš„åç§°æˆ–å°†å…¶æ›´æ”¹ã€‚" << endl;
+	cout << "DEL            åˆ é™¤è‡³å°‘ä¸€ä¸ªæ–‡ä»¶ã€‚" << endl;
+	cout << "DIR            æ˜¾ç¤ºä¸€ä¸ªç›®å½•ä¸­çš„æ–‡ä»¶å’Œå­ç›®å½•ã€‚" << endl;
+	cout << "EXIT           é€€å‡ºæ–‡ä»¶ç³»ç»Ÿã€‚" << endl;
+	cout << "MKDIR          åˆ›å»ºä¸€ä¸ªç›®å½•ã€‚" << endl;
+	cout << "RMDIR          åˆ é™¤ç›®å½•ã€‚" << endl;
+	cout << "PRINT          æ‰“å°æ–‡ä»¶å†…å®¹ã€‚" << endl;
+	cout << "WRITE          å‘æ–‡ä»¶ä¸­å†™å…¥å†…å®¹" << endl;
+	cout << "OPEN           æ‰“å¼€ä¸€ä¸ªæ–‡ä»¶" << endl;
+	cout << "CLOSE          å…³é—­ä¸€ä¸ªæ–‡ä»¶" << endl;
+	cout << "CREATE         åˆ›å»ºä¸€ä¸ªæ–‡ä»¶" << endl;
+	cout << "OPENLIST       å½“å‰æ‰“å¼€æ–‡ä»¶åˆ—è¡¨" << endl;
+	cout << "FSEEK          æ›´æ”¹ä¸€ä¸ªæ–‡ä»¶çš„æŒ‡é’ˆ" << endl;
+	cout << "LOGOUT         ç”¨æˆ·é€€å‡ºç™»å½•" << endl;
+	cout << "WHOAMI         æ˜¾ç¤ºå½“å‰ç”¨æˆ·ä¿¡æ¯" << endl;
+	cout << "FORMAT         æ ¼å¼åŒ–æ–‡ä»¶å·" << endl;
+	cout << "REGISTER       ç”¨æˆ·æ³¨å†Œï¼ˆrootç”¨æˆ·ä¸‹ï¼‰" << endl;
+	cout << "DELETEACCOUNT  åˆ é™¤ç”¨æˆ·ï¼ˆrootç”¨æˆ·ä¸‹ï¼‰" << endl;
+	cout << "SU             æ”¹å˜ç”¨æˆ·" << endl;
+	cout << "CHGRP          æ”¹å˜ç”¨æˆ·æ‰€å±ç»„ï¼ˆrootç”¨æˆ·ä¸‹ï¼‰" << endl;
+	cout << "USERLIST       æ˜¾ç¤ºæ‰€æœ‰ç”¨æˆ·ä¿¡æ¯ï¼ˆrootç”¨æˆ·ä¸‹ï¼‰" << endl;
 	cout << "" << endl;
 	cout << "" << endl;
 	cout << "" << endl;
@@ -218,185 +218,185 @@ void help()
 
 void help_attrib()
 {
-	cout << "¸ü¸ÄÎÄ¼şµÄ¶ÁĞ´ÊôĞÔ" << endl;
+	cout << "æ›´æ”¹æ–‡ä»¶çš„è¯»å†™å±æ€§" << endl;
 	cout << endl;
 	cout << "ATTRIB [+R | -R] [+W | -W] [+E | -E] [O | G | E] [path][filename]" << endl;
 	cout << endl;
-	cout << "  +   ÉèÖÃÊôĞÔ¡£" << endl;
-	cout << "  -   Çå³ıÊôĞÔ¡£" << endl;
-	cout << "  R   ¶ÁÎÄ¼şÊôĞÔ¡£" << endl;
-	cout << "  W   Ğ´ÎÄ¼şÊôĞÔ¡£" << endl;
-	cout << "  E   Ö´ĞĞÎÄ¼şÊôĞÔ¡£" << endl;
-	cout << "  /O  ÎÄ¼şËùÓĞÕßÓÃ»§¡£" << endl;
-	cout << "  /G  ÎÄ¼şÍ¬×éÕßÓÃ»§¡£" << endl;
-	cout << "  /E  ·ÇÎÄ¼şËùÓĞÕß¡¢·ÇÎÄ¼şÍ¬×éÕßÓÃ»§" << endl;
+	cout << "  +   è®¾ç½®å±æ€§ã€‚" << endl;
+	cout << "  -   æ¸…é™¤å±æ€§ã€‚" << endl;
+	cout << "  R   è¯»æ–‡ä»¶å±æ€§ã€‚" << endl;
+	cout << "  W   å†™æ–‡ä»¶å±æ€§ã€‚" << endl;
+	cout << "  E   æ‰§è¡Œæ–‡ä»¶å±æ€§ã€‚" << endl;
+	cout << "  /O  æ–‡ä»¶æ‰€æœ‰è€…ç”¨æˆ·ã€‚" << endl;
+	cout << "  /G  æ–‡ä»¶åŒç»„è€…ç”¨æˆ·ã€‚" << endl;
+	cout << "  /E  éæ–‡ä»¶æ‰€æœ‰è€…ã€éæ–‡ä»¶åŒç»„è€…ç”¨æˆ·" << endl;
 	cout << "[path][filename]" << endl;
-	cout << "      Ö¸¶¨ÊôĞÔÒª´¦ÀíµÄÎÄ¼ş¡£" << endl;
+	cout << "      æŒ‡å®šå±æ€§è¦å¤„ç†çš„æ–‡ä»¶ã€‚" << endl;
 }
 
 void help_cd()
 {
-	cout << "ÏÔÊ¾µ±Ç°Ä¿Â¼Ãû»ò¸Ä±äµ±Ç°Ä¿Â¼¡£" << endl;
+	cout << "æ˜¾ç¤ºå½“å‰ç›®å½•åæˆ–æ”¹å˜å½“å‰ç›®å½•ã€‚" << endl;
 	cout << endl;
 	cout << "CD [path]" << endl;
 	cout << endl;
-	cout << "²»´ø²ÎÊıÖ»¼üÈë CD£¬ÔòÏÔÊ¾µ±Ç°Çı¶¯Æ÷ºÍÄ¿Â¼¡£" << endl;
-	cout << "path¹æÔò£º.´ú±í±¾Ä¿Â¼£¬..´ú±í¸¸Ä¿Â¼£¬Â·¾¶¼äÒÔ/»ò\\·Ö¸ô" << endl;
+	cout << "ä¸å¸¦å‚æ•°åªé”®å…¥ CDï¼Œåˆ™æ˜¾ç¤ºå½“å‰é©±åŠ¨å™¨å’Œç›®å½•ã€‚" << endl;
+	cout << "pathè§„åˆ™ï¼š.ä»£è¡¨æœ¬ç›®å½•ï¼Œ..ä»£è¡¨çˆ¶ç›®å½•ï¼Œè·¯å¾„é—´ä»¥/æˆ–\\åˆ†éš”" << endl;
 }
 void help_del()
 {
-	cout << "É¾³ıÒ»¸ö»ò¶à¸öÎÄ¼ş¡£" << endl;
+	cout << "åˆ é™¤ä¸€ä¸ªæˆ–å¤šä¸ªæ–‡ä»¶ã€‚" << endl;
 	cout << endl;
 	cout << "DEL names" << endl;
 	cout << endl;
-	cout << "É¾³ı¶à¸ö»òÒ»¸öÎÄ¼ş¡£" << endl;
-	cout << "ÓĞÓÃ»§Î´¹Ø±ÕÎÄ¼şÊ±²»ÄÜÉ¾³ıÎÄ¼ş¡£" << endl;
+	cout << "åˆ é™¤å¤šä¸ªæˆ–ä¸€ä¸ªæ–‡ä»¶ã€‚" << endl;
+	cout << "æœ‰ç”¨æˆ·æœªå…³é—­æ–‡ä»¶æ—¶ä¸èƒ½åˆ é™¤æ–‡ä»¶ã€‚" << endl;
 }
 void help_dir()
 {
-	cout << "ÏÔÊ¾Ä¿Â¼ÖĞµÄÎÄ¼şºÍ×ÓÄ¿Â¼ÁĞ±í¡£" << endl;
+	cout << "æ˜¾ç¤ºç›®å½•ä¸­çš„æ–‡ä»¶å’Œå­ç›®å½•åˆ—è¡¨ã€‚" << endl;
 	cout << endl;
 	cout << "DIR [/Q]" << endl;
 	cout << endl;
-	cout << "  /Q  ÏÔÊ¾ÏêÏ¸ĞÅÏ¢¡£" << endl;
+	cout << "  /Q  æ˜¾ç¤ºè¯¦ç»†ä¿¡æ¯ã€‚" << endl;
 }
 void help_exit()
 {
-	cout << "ÍË³ö³ÌĞò(ÎÄ¼şÏµÍ³)¡£" << endl;
+	cout << "é€€å‡ºç¨‹åº(æ–‡ä»¶ç³»ç»Ÿ)ã€‚" << endl;
 	cout << endl;
 	cout << "DIR [exitCode]" << endl;
 	cout << endl;
-	cout << "  exitCode    Ö¸¶¨Ò»¸öÊı×ÖºÅÂë¡£Èç¹ûÍË³ö£¬ÔòÓÃÄÇ¸öÊı×ÖÉèÖÃ¹ı³ÌÍË³ö´úÂë¡£" << endl;
+	cout << "  exitCode    æŒ‡å®šä¸€ä¸ªæ•°å­—å·ç ã€‚å¦‚æœé€€å‡ºï¼Œåˆ™ç”¨é‚£ä¸ªæ•°å­—è®¾ç½®è¿‡ç¨‹é€€å‡ºä»£ç ã€‚" << endl;
 }
 void help_mkdir()
 {
-	cout << "´´½¨Ä¿Â¼¡£" << endl;
+	cout << "åˆ›å»ºç›®å½•ã€‚" << endl;
 	cout << endl;
 	cout << "MKDIR dir" << endl;
 	cout << endl;
-	cout << "  dir    ´´½¨µÄÄ¿Â¼Ãû³Æ¡£" << endl;
+	cout << "  dir    åˆ›å»ºçš„ç›®å½•åç§°ã€‚" << endl;
 }
 void help_rmdir()
 {
-	cout << "É¾³ıÒ»¸öÄ¿Â¼¡£" << endl;
+	cout << "åˆ é™¤ä¸€ä¸ªç›®å½•ã€‚" << endl;
 	cout << endl;
 	cout << "MKDIR dir" << endl;
 	cout << endl;
-	cout << "  dir    ´ıÉ¾³ıµÄÄ¿Â¼Ãû³Æ£¨½öÓĞ¿ÕÄ¿Â¼¿ÉÒÔ±»É¾³ı£©¡£" << endl;
+	cout << "  dir    å¾…åˆ é™¤çš„ç›®å½•åç§°ï¼ˆä»…æœ‰ç©ºç›®å½•å¯ä»¥è¢«åˆ é™¤ï¼‰ã€‚" << endl;
 }
 void help_print()
 {
-	cout << "´òÓ¡ÎÄ±¾ÎÄ¼ş¡£" << endl;
+	cout << "æ‰“å°æ–‡æœ¬æ–‡ä»¶ã€‚" << endl;
 	cout << endl;
 	cout << "PRINT filename [-l length] [-p path]" << endl;
 	cout << endl;
-	cout << "  filename ´òÓ¡µÄÎÄ¼şÃû³Æ¡£" << endl;
-	cout << "  length   ´òÓ¡µÄ³¤¶È£¬Ä¬ÈÏÈ«²¿´òÓ¡" << endl;
-	cout << "  path     ¿ÉÑ¡£¬´òÓ¡µ½ÎÄ¼şÏµÍ³ËùÔÚÄ¿Â¼µÄÎÄ¼şÃû³Æ¡£" << endl;
+	cout << "  filename æ‰“å°çš„æ–‡ä»¶åç§°ã€‚" << endl;
+	cout << "  length   æ‰“å°çš„é•¿åº¦ï¼Œé»˜è®¤å…¨éƒ¨æ‰“å°" << endl;
+	cout << "  path     å¯é€‰ï¼Œæ‰“å°åˆ°æ–‡ä»¶ç³»ç»Ÿæ‰€åœ¨ç›®å½•çš„æ–‡ä»¶åç§°ã€‚" << endl;
 }
 void help_write()
 {
-	cout << "´òÓ¡ÎÄ±¾ÎÄ¼ş¡£" << endl;
+	cout << "æ‰“å°æ–‡æœ¬æ–‡ä»¶ã€‚" << endl;
 	cout << endl;
 	cout << "PRINT [filename] [-s|-f] [path|content]" << endl;
 	cout << endl;
-	cout << "  filename Ğ´ÈëµÄÎÄ¼şÃû³Æ¡£" << endl;
-	cout << "  -s      ´ÓÆÁÄ»Ğ´Èë¡£" << endl;
-	cout << "  -f      ´ÓÎÄ¼şĞ´Èë¡£" << endl;
-	cout << "  path    Ğ´Èëµ½ÎÄ¼şÏµÍ³ËùÔÚÄ¿Â¼µÄÎÄ¼şÃû³Æ¡£¡£" << endl;
-	cout << "  content Ğ´ÈëÎÄ¼şÄÚÈİ¡£" << endl;
+	cout << "  filename å†™å…¥çš„æ–‡ä»¶åç§°ã€‚" << endl;
+	cout << "  -s      ä»å±å¹•å†™å…¥ã€‚" << endl;
+	cout << "  -f      ä»æ–‡ä»¶å†™å…¥ã€‚" << endl;
+	cout << "  path    å†™å…¥åˆ°æ–‡ä»¶ç³»ç»Ÿæ‰€åœ¨ç›®å½•çš„æ–‡ä»¶åç§°ã€‚ã€‚" << endl;
+	cout << "  content å†™å…¥æ–‡ä»¶å†…å®¹ã€‚" << endl;
 }
 void help_open()
 {
-	cout << "´ò¿ªÎÄ¼ş¡£" << endl;
+	cout << "æ‰“å¼€æ–‡ä»¶ã€‚" << endl;
 	cout << endl;
 	cout << "OPEN [filename]" << endl;
 	cout << endl;
-	cout << "  filename ´ò¿ªµÄÎÄ¼şÃû³Æ¡£" << endl;
+	cout << "  filename æ‰“å¼€çš„æ–‡ä»¶åç§°ã€‚" << endl;
 }
 void help_close()
 {
-	cout << "¹Ø±ÕÎÄ¼ş¡£" << endl;
+	cout << "å…³é—­æ–‡ä»¶ã€‚" << endl;
 	cout << endl;
 	cout << "CLOSE [filename]" << endl;
 	cout << endl;
-	cout << "  filename ¹Ø±ÕµÄÎÄ¼şÃû³Æ¡£" << endl;
+	cout << "  filename å…³é—­çš„æ–‡ä»¶åç§°ã€‚" << endl;
 }
 void help_fseek()
 {
-	cout << "¸ü¸ÄÎÄ¼şÖ¸Õë¡£" << endl;
+	cout << "æ›´æ”¹æ–‡ä»¶æŒ‡é’ˆã€‚" << endl;
 	cout << endl;
 	cout << "FSEEK filename pos" << endl;
 	cout << endl;
-	cout << "  filename ÎÄ¼şÃû³Æ¡£" << endl;
-	cout << "  pos      ÎÄ¼şÖ¸Õë¶¨Î»Î»ÖÃ¡£" << endl;
+	cout << "  filename æ–‡ä»¶åç§°ã€‚" << endl;
+	cout << "  pos      æ–‡ä»¶æŒ‡é’ˆå®šä½ä½ç½®ã€‚" << endl;
 }
 void help_create()
 {
-	cout << "´´½¨ÎÄ¼ş¡£" << endl;
+	cout << "åˆ›å»ºæ–‡ä»¶ã€‚" << endl;
 	cout << endl;
 	cout << "CREATE filename" << endl;
 	cout << endl;
-	cout << "  filename ÎÄ¼şÃû³Æ¡£" << endl;
+	cout << "  filename æ–‡ä»¶åç§°ã€‚" << endl;
 }
 void help_logout()
 {
-	cout << "ÓÃ»§µÇ³ö¡£" << endl;
+	cout << "ç”¨æˆ·ç™»å‡ºã€‚" << endl;
 	cout << endl;
 	cout << "LOGOUT" << endl;
 }
 void help_whoami()
 {
-	cout << "»ñÈ¡µ±Ç°µÇÂ¼ÓÃ»§¡£" << endl;
+	cout << "è·å–å½“å‰ç™»å½•ç”¨æˆ·ã€‚" << endl;
 	cout << endl;
 	cout << "WHOAMI" << endl;
 }
 void help_format()
 {
-	cout << "¸ñÊ½»¯ÎÄ¼ş¾í¡£" << endl;
+	cout << "æ ¼å¼åŒ–æ–‡ä»¶å·ã€‚" << endl;
 	cout << endl;
 	cout << "FORMAT" << endl;
 }
 void help_register()
 {
-	cout << "´´½¨ĞÂÓÃ»§¡£" << endl;
+	cout << "åˆ›å»ºæ–°ç”¨æˆ·ã€‚" << endl;
 	cout << endl;
 	cout << "REGISTER username password" << endl;
-	cout << "  username ÓÃ»§Ãû¡£" << endl;
-	cout << "  password ÓÃ»§ÃÜÂë¡£" << endl;
+	cout << "  username ç”¨æˆ·åã€‚" << endl;
+	cout << "  password ç”¨æˆ·å¯†ç ã€‚" << endl;
 }
 void help_deleteaccount()
 {
-	cout << "É¾³ıÓÃ»§¡£" << endl;
+	cout << "åˆ é™¤ç”¨æˆ·ã€‚" << endl;
 	cout << endl;
 	cout << "DELETEACCOUNT username" << endl;
-	cout << "  username ÓÃ»§Ãû¡£" << endl;
+	cout << "  username ç”¨æˆ·åã€‚" << endl;
 }
 void help_su()
 {
-	cout << "¸Ä±äÓÃ»§" << endl;
+	cout << "æ”¹å˜ç”¨æˆ·" << endl;
 	cout << endl;
 	cout << "SU username password" << endl;
-	cout << "  username ÓÃ»§Ãû¡£" << endl;
-	cout << "  password ÓÃ»§ÃÜÂë¡£" << endl;
+	cout << "  username ç”¨æˆ·åã€‚" << endl;
+	cout << "  password ç”¨æˆ·å¯†ç ã€‚" << endl;
 }
 void help_chgrp()
 {
-	cout << "¸Ä±äÓÃ»§ËùÊô×é" << endl;
+	cout << "æ”¹å˜ç”¨æˆ·æ‰€å±ç»„" << endl;
 	cout << endl;
 	cout << "CHGRP username usergroupid" << endl;
-	cout << "  username    ÓÃ»§Ãû¡£" << endl;
-	cout << "  usergroupid ÓÃ»§ËùÊô×é¡£" << endl;
+	cout << "  username    ç”¨æˆ·åã€‚" << endl;
+	cout << "  usergroupid ç”¨æˆ·æ‰€å±ç»„ã€‚" << endl;
 }
 void help_userlist()
 {
-	cout << "ÏÔÊ¾ËùÓĞÓÃ»§ĞÅÏ¢" << endl;
+	cout << "æ˜¾ç¤ºæ‰€æœ‰ç”¨æˆ·ä¿¡æ¯" << endl;
 	cout << endl;
 	cout << "USERLIST" << endl;
 }
 void help_openlist()
 {
-	cout << "ÏÔÊ¾ËùÓĞ´ò¿ªÎÄ¼şÁĞ±í" << endl;
+	cout << "æ˜¾ç¤ºæ‰€æœ‰æ‰“å¼€æ–‡ä»¶åˆ—è¡¨" << endl;
 	cout << endl;
 	cout << "OPENLIST" << endl;
 }

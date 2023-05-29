@@ -1,7 +1,7 @@
 #include "../include/head.h"
 #include "../include/error.h"
 
-// µÇÂ¼ÓÃ»§
+// ç™»å½•ç”¨æˆ·
 void User_Login(const char *user_name, const char *password)
 {
 	User user;
@@ -18,32 +18,32 @@ void User_Login(const char *user_name, const char *password)
 			}
 			else
 			{
-				cout << "ÃÜÂë´íÎó" << endl;
+				cout << "å¯†ç é”™è¯¯" << endl;
 				throw(ERROR_PASSWORD_WRONG);
 			}
 		}
 	}
 	if (find_user == false)
 	{
-		cout << "´ËÓÃ»§²»´æÔÚ" << endl;
+		cout << "æ­¤ç”¨æˆ·ä¸å­˜åœ¨" << endl;
 		throw(ERROR_USER_NOT_EXIST);
 	}
 }
 
-// µÇ³öÓÃ»§
+// ç™»å‡ºç”¨æˆ·
 void User_Logout()
 {
 	user_id = -1;
 }
 
-// ´´½¨ÓÃ»§
+// åˆ›å»ºç”¨æˆ·
 void User_Register(const char *user_name, const char *password)
 {
 	User user;
 	Read_User(user);
 	if (user_id != 0)
 	{
-		cout << "Ö»ÓÐrootÓÃ»§¿ÉÒÔ½øÐÐ×¢²á" << endl;
+		cout << "åªæœ‰rootç”¨æˆ·å¯ä»¥è¿›è¡Œæ³¨å†Œ" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 	int i;
@@ -51,7 +51,7 @@ void User_Register(const char *user_name, const char *password)
 	{
 		if (strcmp(user.u_name[i], user_name) == 0)
 		{
-			cout << "ÓÃ»§ÃûÒÑ´æÔÚ£¬ÎÞ·¨×¢²á" << endl;
+			cout << "ç”¨æˆ·åå·²å­˜åœ¨ï¼Œæ— æ³•æ³¨å†Œ" << endl;
 			throw(ERROR_USER_REGISTER);
 		}
 	}
@@ -68,20 +68,20 @@ void User_Register(const char *user_name, const char *password)
 	}
 	if (i == USER_NUM)
 	{
-		cout << "ÓÃ»§Á¿ÒÑ´ïÉÏÏÞÖÆ£¬ÎÞ·¨¼ÌÐø×¢²á" << endl;
+		cout << "ç”¨æˆ·é‡å·²è¾¾ä¸Šé™åˆ¶ï¼Œæ— æ³•ç»§ç»­æ³¨å†Œ" << endl;
 		throw(ERROR_USER_REGISTER);
 	}
 	Write_User(user);
 }
 
-// É¾³ýÓÃ»§
+// åˆ é™¤ç”¨æˆ·
 void User_Delete(const char *user_name)
 {
 	User user;
 	Read_User(user);
 	if (user_id != 0)
 	{
-		cout << "Ö»ÓÐrootÓÃ»§¿ÉÒÔ½øÐÐÓÃ»§É¾³ý" << endl;
+		cout << "åªæœ‰rootç”¨æˆ·å¯ä»¥è¿›è¡Œç”¨æˆ·åˆ é™¤" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 
@@ -98,13 +98,13 @@ void User_Delete(const char *user_name)
 
 	if (find_user == false)
 	{
-		cout << "´ËÓÃ»§²»´æÔÚ" << endl;
+		cout << "æ­¤ç”¨æˆ·ä¸å­˜åœ¨" << endl;
 		throw(ERROR_USER_NOT_EXIST);
 	}
 
 	Write_User(user);
 }
-// »ñÈ¡µ±Ç°µÇÂ¼µÄÓÃ»§µÄÓÃ»§ÃûºÍÓÃ»§id
+// èŽ·å–å½“å‰ç™»å½•çš„ç”¨æˆ·çš„ç”¨æˆ·åå’Œç”¨æˆ·id
 unsigned int Get_User(char *username)
 {
 	if (username != NULL)
@@ -115,14 +115,14 @@ unsigned int Get_User(char *username)
 	}
 	return user_id;
 }
-// ¸ü¸ÄÓÃ»§µÄËùÊôµÄ×é
+// æ›´æ”¹ç”¨æˆ·çš„æ‰€å±žçš„ç»„
 void Change_User_Group(const char *user_name, unsigned int user_group)
 {
 	User user;
 	Read_User(user);
 	if (user_id != 0)
 	{
-		cout << "Ö»ÓÐrootÓÃ»§¿ÉÒÔ½øÐÐÓÃ»§×é¸ü¸Ä" << endl;
+		cout << "åªæœ‰rootç”¨æˆ·å¯ä»¥è¿›è¡Œç”¨æˆ·ç»„æ›´æ”¹" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 
@@ -139,20 +139,20 @@ void Change_User_Group(const char *user_name, unsigned int user_group)
 
 	if (find_user == false)
 	{
-		cout << "´ËÓÃ»§²»´æÔÚ" << endl;
+		cout << "æ­¤ç”¨æˆ·ä¸å­˜åœ¨" << endl;
 		throw(ERROR_USER_NOT_EXIST);
 	}
 	user.u_gid[i] = user_group;
 	Write_User(user);
 }
-// ÏÔÊ¾ÓÃ»§ÁÐ±í
+// æ˜¾ç¤ºç”¨æˆ·åˆ—è¡¨
 void Show_User_List()
 {
 	User user;
 	Read_User(user);
 	if (user_id != 0)
 	{
-		cout << "Ö»ÓÐrootÓÃ»§¿ÉÒÔ²é¿´ÓÃ»§ÁÐ±í" << endl;
+		cout << "åªæœ‰rootç”¨æˆ·å¯ä»¥æŸ¥çœ‹ç”¨æˆ·åˆ—è¡¨" << endl;
 		throw(ERROR_NO_PERMISSION);
 	}
 	unsigned int username_length = 20,
