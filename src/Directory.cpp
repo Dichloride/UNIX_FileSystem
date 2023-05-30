@@ -302,12 +302,6 @@ void Open_Directory(const char *directory_name)
 // 获取当前目录（其实按理来说应该返回char*）
 string Current_Directory()
 {
-	// 读取当前目录
-	fd.open(DISK_NAME, ios::out | ios::in | ios::binary);
-	fd.seekg(BLOCK_POSITION * BLOCK_SIZE, ios::beg);
-	fd.read((char *)&directory, sizeof(directory));
-	fd.close();
-
 	Directory father_directory, current_directory = directory;
 
 	string dir_path = "";
@@ -323,12 +317,12 @@ string Current_Directory()
 		{
 			if (father_directory.d_inodenumber[i] == current_directory.d_inodenumber[0])
 			{
-				dir_path = father_directory.d_filename[i] + ("\\" + dir_path);
+				dir_path = father_directory.d_filename[i] + ("/" + dir_path);
 				current_directory = father_directory;
 			}
 		}
 	}
-	dir_path = "root\\" + dir_path;
+	dir_path = "root/" + dir_path;
 	dir_path = dir_path.substr(0, dir_path.length() - 1);
 	return dir_path;
 }

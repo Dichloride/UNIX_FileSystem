@@ -108,8 +108,8 @@ void Init()
 	User user;
 	strcpy(user.u_name[0], "root");
 	strcpy(user.u_password[0], "root");
-	strcpy(user.u_name[1], "juju");
-	strcpy(user.u_password[1], "juju");
+	strcpy(user.u_name[1], "testUser");
+	strcpy(user.u_password[1], "testUser");
 	user.u_id[0] = 0;
 	user.u_id[1] = 1;
 	for (int i = 2; i < USER_NUM; i++)
@@ -296,9 +296,9 @@ void help_print()
 }
 void help_write()
 {
-	cout << "打印文本文件。" << endl;
+	cout << "写入文本文件。" << endl;
 	cout << endl;
-	cout << "PRINT [filename] [-s|-f] [path|content]" << endl;
+	cout << "WRITE [filename] [-s|-f] [path|content]" << endl;
 	cout << endl;
 	cout << "  filename 写入的文件名称。" << endl;
 	cout << "  -s      从屏幕写入。" << endl;
