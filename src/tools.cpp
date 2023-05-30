@@ -108,8 +108,8 @@ void Init()
 	User user;
 	strcpy(user.u_name[0], "root");
 	strcpy(user.u_password[0], "root");
-	strcpy(user.u_name[1], "testUser");
-	strcpy(user.u_password[1], "testUser");
+	strcpy(user.u_name[1], "test");
+	strcpy(user.u_password[1], "test");
 	user.u_id[0] = 0;
 	user.u_id[1] = 1;
 	for (int i = 2; i < USER_NUM; i++)

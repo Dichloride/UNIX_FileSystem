@@ -570,6 +570,7 @@ int main()
 				cin >> user_password;
 				User_Login(user_name, user_password);
 				getchar();
+				cout << endl;
 			}
 			User user;
 			Read_User(user);
