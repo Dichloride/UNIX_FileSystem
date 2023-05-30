@@ -524,7 +524,7 @@ void Switch_Demand(vector<string> demand_vector)
 int main()
 {
 	cout << "===============================================" << endl;
-	cout << "              仿UNIX V6++文件系统              " << endl;
+	cout << "                  仿UNIX文件系统                 " << endl;
 	cout << "===============================================" << endl;
 	cout << endl;
 
