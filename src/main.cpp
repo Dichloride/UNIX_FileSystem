@@ -374,7 +374,6 @@ void Switch_Demand(vector<string> demand_vector)
 			{
 				int fileLen = demand_vector[3].length();
 				demand_vector[3] = originDemand.substr(originDemand.size() - fileLen);
-				cout << "文件为" << demand_vector[3] << endl;
 				string content;
 				fstream f(demand_vector[3], ios::in);
 				if (!f.is_open())
