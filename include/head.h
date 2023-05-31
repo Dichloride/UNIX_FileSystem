@@ -22,7 +22,7 @@ static const unsigned int SUBDIRECTORY_NUM = 12;
 static const unsigned int FILE_NAME_MAX = 32;
 //--------------------- 用户 ---------------------------
 // 用户最大数量
-static const unsigned int USER_NUM = 6;
+static const unsigned int USER_NUM = 8;
 // 用户名称的最大长度
 static const unsigned int USER_NAME_MAX = 16;
 // 用户密码的最大长度
